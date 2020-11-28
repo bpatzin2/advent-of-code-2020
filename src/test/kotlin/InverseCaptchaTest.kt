@@ -1,5 +1,3 @@
-package test
-import inverseCaptcha
 import org.junit.Test
 import kotlin.test.assertEquals
 
