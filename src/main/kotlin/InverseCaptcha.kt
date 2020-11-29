@@ -1,19 +1,10 @@
 fun inverseCaptcha(numberList: List<Int>): Long {
-  if(numberList.isEmpty()) {
-    return 0
+  return numberList.foldRightIndexed(0L) { idx, element, sum ->
+    if (isNextElementSame(numberList, element, idx)) sum + element else sum
   }
-
-  val result = numberList
-    .foldRightIndexed(0L) { idx, element, sum ->
-      if (isNextElementSame(numberList, element, idx)) sum + element else sum
-    }
-
-  if(numberList.last() == numberList.first()){
-    return result + numberList.first()
-  }
-
-  return result
 }
 
-private fun isNextElementSame(numberList: List<Int>, element: Int, idx: Int) =
-  numberList.getOrNull(idx + 1) == element
+private fun isNextElementSame(numberList: List<Int>, element: Int, idx: Int): Boolean {
+  val nextIndex = if(idx == numberList.size - 1) 0 else idx + 1
+  return numberList[nextIndex] == element
+}
