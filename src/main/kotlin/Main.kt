@@ -3,6 +3,11 @@ fun day1From2017(): Long {
   return inverseCaptcha(numberList)
 }
 
+fun day1pt1(): Long {
+  val numberList = asNumberList("input/test0.txt")
+  return 0L;
+}
+
 fun main(){
-  println(day1From2017())
+  println(day1pt1())
 }
