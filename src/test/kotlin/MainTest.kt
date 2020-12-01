@@ -21,4 +21,9 @@ class MainTest {
   fun day1p2TestInput_works() {
     assertEquals(241861950, day1pt2("input/day1Test.txt"))
   }
+
+  @Test
+  fun day1p2RealInput_works() {
+    assertEquals(230057040, day1pt2("input/day1.txt"))
+  }
 }
