@@ -1,4 +1,4 @@
-fun find(numberList: List<Int>, sum: Int): Pair<Int, Int>? {
+fun findPair(numberList: List<Int>, sum: Int): Pair<Int, Int>? {
     val numberCounts = numberList.groupingBy { it }.eachCount()
     for (num in numberList) {
         val expectedOther = sum - num

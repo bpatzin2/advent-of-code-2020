@@ -9,7 +9,7 @@ fun day1pt1(): Int {
 
 fun day1pt1(pathname: String): Int {
   val numberList = asNumberListByNewLine(pathname)
-  val pair = find(numberList, 2020) ?: return -1
+  val pair = findPair(numberList, 2020) ?: return -1
   return pair.first * pair.second
 }
 
