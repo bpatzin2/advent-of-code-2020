@@ -1,11 +1,12 @@
 package fileinput
 
+import util.asDigitList
 import java.io.BufferedReader
 import java.io.File
 
-fun asNumberList(pathname: String): List<Int> {
+fun asDigitList(pathname: String): List<Int> {
   val inputString = asString(pathname)
-  return inputString.map(Character::getNumericValue)
+  return asDigitList(inputString)
 }
 
 fun asNumberListByNewLine(pathname: String): List<Int> {

@@ -1,11 +1,11 @@
-import fileinput.asNumberList
+import fileinput.asDigitList
 import fileinput.asNumberListByNewLine
 import findbysum.findPair
 import findbysum.findTriplet
 import inversecaptcha.inverseCaptcha
 
 fun day1From2017(): Long {
-  val numberList = asNumberList("input/input2017Day1Pt1.txt")
+  val numberList = asDigitList("input/input2017Day1Pt1.txt")
   return inverseCaptcha(numberList)
 }
 
