@@ -1,3 +1,5 @@
+package inversecaptcha
+
 fun inverseCaptcha(numberList: List<Int>): Long {
   return numberList.foldRightIndexed(0L) { idx, element, sum ->
     if (isNextElementSame(numberList, element, idx)) sum + element else sum

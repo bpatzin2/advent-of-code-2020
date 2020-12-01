@@ -1,3 +1,5 @@
+package findbysum
+
 // 0(N^2) implementation to find triplet that sums to given value
 fun findTriplet(numberList: List<Int>, sum: Int): List<Int>? {
     val numberCounts = numberList.groupingBy { it }.eachCount()

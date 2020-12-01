@@ -1,6 +1,7 @@
+package findbysum
+
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.fail
 
 class FindBySumTest {
   val SAMPLE_INPUT = listOf(1721, 979, 366, 299, 675, 1456)
