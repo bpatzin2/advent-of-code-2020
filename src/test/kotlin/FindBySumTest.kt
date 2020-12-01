@@ -3,6 +3,8 @@ import kotlin.test.assertEquals
 import kotlin.test.fail
 
 class FindBySumTest {
+  val SAMPLE_INPUT = listOf(1721, 979, 366, 299, 675, 1456)
+
   @Test
   fun findPair_whenEmptyList_thenAnswerIsNull() {
     assertEquals(null, findPair(listOf(), 42))
@@ -49,6 +51,14 @@ class FindBySumTest {
   @Test
   fun findTriplet_whenThereATripletThatSums_thenAnswerThatTriplet() {
     assertEqualContent(listOf(1, 2, 39), findTriplet(listOf(1, 2, 39), 42)!!)
+  }
+
+  @Test
+  fun findTriplet_sampleInputTest_thenAnswerThatTriplet() {
+    val expectedResult = listOf(979, 366, 675)
+    val actualResult = findTriplet(SAMPLE_INPUT, 2020)!!
+    println(actualResult)
+    assertEqualContent(expectedResult, actualResult)
   }
 
   private fun <T>assertEqualContent(l1: List<T>, l2: List<T>){
