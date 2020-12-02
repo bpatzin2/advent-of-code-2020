@@ -4,8 +4,7 @@ import fileinput.toPasswordsWithPolicies
 import findbysum.findPair
 import findbysum.findTriplet
 import inversecaptcha.inverseCaptcha
-import passwordpolicy.isValid
-import passwordpolicy.isValidNew
+import passwordpolicy.PasswordWithPolicy
 
 fun day1From2017(): Long {
   val numberList = asDigitList("input/input2017Day1Pt1.txt")
@@ -35,7 +34,7 @@ fun day1pt2(pathname: String): Int {
 fun day2pt1(pathname: String): Int {
   val passwordWithPolicies = toPasswordsWithPolicies(pathname)
   return passwordWithPolicies
-    .filter(::isValid)
+    .filter(PasswordWithPolicy::isValid)
     .count()
 }
 
@@ -46,7 +45,7 @@ fun day2pt1(): Int {
 fun day2pt2(pathname: String): Int {
   val passwordWithPolicies = toPasswordsWithPolicies(pathname)
   return passwordWithPolicies
-    .filter(::isValidNew)
+    .filter(PasswordWithPolicy::isValidNew)
     .count()
 }
 
