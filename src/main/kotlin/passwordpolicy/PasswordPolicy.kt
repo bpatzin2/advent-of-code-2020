@@ -1,6 +1,25 @@
 package passwordpolicy
 
-data class PasswordPolicy(val character: String, val min: Int, val max: Int)
+data class PasswordPolicy(val character: String, val first: Int, val second: Int){
+    fun isValidWithMinMaxPolicy(password: String): Boolean{
+        val matches = allPolicyCharMatches(password)
+        return matches.count() in first..second
+    }
+
+    fun isValidWithXorIndexPolicy(password: String): Boolean{
+        val matches = allPolicyCharMatches(password)
+        val oneIndexedIndices = matches
+            .map(MatchResult::range)
+            .map{m -> m.first + 1}.toSet()
+        return oneIndexedIndices.contains(first) xor
+                oneIndexedIndices.contains(second)
+    }
+
+    private fun allPolicyCharMatches(password: String): Sequence<MatchResult> {
+        val policyRegex = Regex(character)
+        return policyRegex.findAll(password)
+    }
+}
 
 fun toPasswordPolicy(passwordPolicyStr: String): PasswordPolicy {
     val policyParts = passwordPolicyStr.split(" ")
