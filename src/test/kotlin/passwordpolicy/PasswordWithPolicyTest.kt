@@ -45,4 +45,21 @@ class PasswordWithPolicyTest{
             true,
             isValid(PasswordWithPolicy("abaca",  PasswordPolicy("a", 1, 3))))
     }
+
+    @Test
+    fun isValid_worksOnTestInput() {
+        //1-3 a: abcde
+        //1-3 b: cdefg
+        //2-9 c: ccccccccc
+        assertEquals(
+            true,
+            isValid(PasswordWithPolicy("abcde",  PasswordPolicy("a", 1, 3))))
+        assertEquals(
+            false,
+            isValid(PasswordWithPolicy("cdefg",  PasswordPolicy("b", 1, 3))))
+        assertEquals(
+            true,
+            isValid(PasswordWithPolicy("ccccccccc",  PasswordPolicy("c", 2, 9))))
+
+    }
 }
