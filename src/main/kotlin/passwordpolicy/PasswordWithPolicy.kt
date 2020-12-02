@@ -10,19 +10,22 @@ fun toPasswordWithPolicy(passwordWithPolicyStr: String): PasswordWithPolicy{
 }
 
 fun isValid(passwordWithPolicy: PasswordWithPolicy): Boolean{
+    val matches = allPolicyCharMatches(passwordWithPolicy)
     val policy = passwordWithPolicy.policy
-    val password = passwordWithPolicy.password
-    val policyRegex = Regex(policy.character)
-    val matches = policyRegex.findAll(password)
     return matches.count() >= policy.min && matches.count() <= policy.max
 }
 
 fun isValidNew(passwordWithPolicy: PasswordWithPolicy): Boolean{
+    val matches = allPolicyCharMatches(passwordWithPolicy)
+    val oneIndexedIndices = matches
+        .map(MatchResult::range)
+        .map{m -> m.first + 1}.toSet()
     val policy = passwordWithPolicy.policy
-    val password = passwordWithPolicy.password
-    val policyRegex = Regex(policy.character)
-    val matches = policyRegex.findAll(password)
-    val matchRanges = matches.map(MatchResult::range)
-    val oneIndexedIndices = matchRanges.map{m -> m.first + 1}.toSet()
     return oneIndexedIndices.contains(policy.min) xor oneIndexedIndices.contains(policy.max)
+}
+
+private fun allPolicyCharMatches(passwordWithPolicy: PasswordWithPolicy): Sequence<MatchResult> {
+    val (password, policy) = passwordWithPolicy
+    val policyRegex = Regex(policy.character)
+    return policyRegex.findAll(password)
 }
