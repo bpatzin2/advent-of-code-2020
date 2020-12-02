@@ -10,4 +10,39 @@ class PasswordWithPolicyTest{
             PasswordWithPolicy("abc",  PasswordPolicy("a", 1, 3)),
             toPasswordWithPolicy("1-3 a: abc"))
     }
+
+    @Test
+    fun isValid_falseWhenLessThanMin() {
+        assertEquals(
+            false,
+            isValid(PasswordWithPolicy("abc",  PasswordPolicy("a", 2, 4))))
+    }
+
+    @Test
+    fun isValid_falseWhenMoreThanMax() {
+        assertEquals(
+            false,
+            isValid(PasswordWithPolicy("abcaaaa",  PasswordPolicy("a", 2, 4))))
+    }
+
+    @Test
+    fun isValid_trueWhenWithinRange() {
+        assertEquals(
+            true,
+            isValid(PasswordWithPolicy("abca",  PasswordPolicy("a", 1, 4))))
+    }
+
+    @Test
+    fun isValid_trueWhenMin() {
+        assertEquals(
+            true,
+            isValid(PasswordWithPolicy("abc",  PasswordPolicy("a", 1, 3))))
+    }
+
+    @Test
+    fun isValid_trueWhenMax() {
+        assertEquals(
+            true,
+            isValid(PasswordWithPolicy("abaca",  PasswordPolicy("a", 1, 3))))
+    }
 }

@@ -8,3 +8,11 @@ fun toPasswordWithPolicy(passwordWithPolicyStr: String): PasswordWithPolicy{
         policyWithPassword[1],
         toPasswordPolicy(policyWithPassword[0]))
 }
+
+fun isValid(passwordWithPolicy: PasswordWithPolicy): Boolean{
+    val policy = passwordWithPolicy.policy
+    val password = passwordWithPolicy.password
+    val policyRegex = Regex(policy.character)
+    val matches = policyRegex.findAll(password)
+    return matches.count() >= policy.min && matches.count() <= policy.max
+}
