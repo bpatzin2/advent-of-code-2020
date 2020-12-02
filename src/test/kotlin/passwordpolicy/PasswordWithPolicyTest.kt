@@ -62,4 +62,32 @@ class PasswordWithPolicyTest{
             isValid(PasswordWithPolicy("ccccccccc",  PasswordPolicy("c", 2, 9))))
 
     }
+
+    @Test
+    fun isValidNew_falseWhenNotAtNeitherIndex() {
+        assertEquals(
+            false,
+            isValidNew(PasswordWithPolicy("aabba",  PasswordPolicy("a", 3, 4))))
+    }
+
+    @Test
+    fun isValidNew_falseWhenAtBothIndices() {
+        assertEquals(
+            false,
+            isValidNew(PasswordWithPolicy("abba",  PasswordPolicy("a", 1, 4))))
+    }
+
+    @Test
+    fun isValidNew_trueWhenAtFirstIndex() {
+        assertEquals(
+            true,
+            isValidNew(PasswordWithPolicy("abbb",  PasswordPolicy("a", 1, 4))))
+    }
+
+    @Test
+    fun isValidNew_trueWhenAtSecondIndex() {
+        assertEquals(
+            true,
+            isValidNew(PasswordWithPolicy("bbba",  PasswordPolicy("a", 1, 4))))
+    }
 }
