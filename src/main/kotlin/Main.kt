@@ -38,6 +38,10 @@ fun day2pt1(pathname: String): Int {
     .count()
 }
 
+fun day2pt1(): Int {
+  return day2pt1("input/day2.txt")
+}
+
 fun main(){
-  println(day1pt2())
+  println(day2pt1())
 }
