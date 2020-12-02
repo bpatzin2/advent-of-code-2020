@@ -15,7 +15,7 @@ class PasswordWithPolicyTest{
     fun isValid_falseWhenLessThanMin() {
         assertEquals(
             false,
-            PasswordWithPolicy("abc",  PasswordPolicy("a", 2, 4)).isValid()
+            PasswordWithPolicy("abc",  PasswordPolicy("a", 2, 4)).isValidWithMinMaxPolicy()
         )
     }
 
@@ -23,28 +23,28 @@ class PasswordWithPolicyTest{
     fun isValid_falseWhenMoreThanMax() {
         assertEquals(
             false,
-            PasswordWithPolicy("abcaaaa",  PasswordPolicy("a", 2, 4)).isValid())
+            PasswordWithPolicy("abcaaaa",  PasswordPolicy("a", 2, 4)).isValidWithMinMaxPolicy())
     }
 
     @Test
     fun isValid_trueWhenWithinRange() {
         assertEquals(
             true,
-            PasswordWithPolicy("abca",  PasswordPolicy("a", 1, 4)).isValid())
+            PasswordWithPolicy("abca",  PasswordPolicy("a", 1, 4)).isValidWithMinMaxPolicy())
     }
 
     @Test
     fun isValid_trueWhenMin() {
         assertEquals(
             true,
-            PasswordWithPolicy("abc",  PasswordPolicy("a", 1, 3)).isValid())
+            PasswordWithPolicy("abc",  PasswordPolicy("a", 1, 3)).isValidWithMinMaxPolicy())
     }
 
     @Test
     fun isValid_trueWhenMax() {
         assertEquals(
             true,
-            PasswordWithPolicy("abaca",  PasswordPolicy("a", 1, 3)).isValid())
+            PasswordWithPolicy("abaca",  PasswordPolicy("a", 1, 3)).isValidWithMinMaxPolicy())
     }
 
     @Test
@@ -54,13 +54,13 @@ class PasswordWithPolicyTest{
         //2-9 c: ccccccccc
         assertEquals(
             true,
-            PasswordWithPolicy("abcde",  PasswordPolicy("a", 1, 3)).isValid())
+            PasswordWithPolicy("abcde",  PasswordPolicy("a", 1, 3)).isValidWithMinMaxPolicy())
         assertEquals(
             false,
-            PasswordWithPolicy("cdefg",  PasswordPolicy("b", 1, 3)).isValid())
+            PasswordWithPolicy("cdefg",  PasswordPolicy("b", 1, 3)).isValidWithMinMaxPolicy())
         assertEquals(
             true,
-            PasswordWithPolicy("ccccccccc",  PasswordPolicy("c", 2, 9)).isValid())
+            PasswordWithPolicy("ccccccccc",  PasswordPolicy("c", 2, 9)).isValidWithMinMaxPolicy())
 
     }
 
@@ -68,27 +68,27 @@ class PasswordWithPolicyTest{
     fun isValidNew_falseWhenNotAtNeitherIndex() {
         assertEquals(
             false,
-            PasswordWithPolicy("aabba",  PasswordPolicy("a", 3, 4)).isValidNew())
+            PasswordWithPolicy("aabba",  PasswordPolicy("a", 3, 4)).isValidWithXorIndexPolicy())
     }
 
     @Test
     fun isValidNew_falseWhenAtBothIndices() {
         assertEquals(
             false,
-            PasswordWithPolicy("abba",  PasswordPolicy("a", 1, 4)).isValidNew())
+            PasswordWithPolicy("abba",  PasswordPolicy("a", 1, 4)).isValidWithXorIndexPolicy())
     }
 
     @Test
     fun isValidNew_trueWhenAtFirstIndex() {
         assertEquals(
             true,
-            PasswordWithPolicy("abbb",  PasswordPolicy("a", 1, 4)).isValidNew())
+            PasswordWithPolicy("abbb",  PasswordPolicy("a", 1, 4)).isValidWithXorIndexPolicy())
     }
 
     @Test
     fun isValidNew_trueWhenAtSecondIndex() {
         assertEquals(
             true,
-            PasswordWithPolicy("bbba",  PasswordPolicy("a", 1, 4)).isValidNew())
+            PasswordWithPolicy("bbba",  PasswordPolicy("a", 1, 4)).isValidWithXorIndexPolicy())
     }
 }

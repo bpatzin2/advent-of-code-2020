@@ -34,7 +34,7 @@ fun day1pt2(pathname: String): Int {
 fun day2pt1(pathname: String): Int {
   val passwordWithPolicies = toPasswordsWithPolicies(pathname)
   return passwordWithPolicies
-    .filter(PasswordWithPolicy::isValid)
+    .filter(PasswordWithPolicy::isValidWithMinMaxPolicy)
     .count()
 }
 
@@ -45,7 +45,7 @@ fun day2pt1(): Int {
 fun day2pt2(pathname: String): Int {
   val passwordWithPolicies = toPasswordsWithPolicies(pathname)
   return passwordWithPolicies
-    .filter(PasswordWithPolicy::isValidNew)
+    .filter(PasswordWithPolicy::isValidWithXorIndexPolicy)
     .count()
 }
 
