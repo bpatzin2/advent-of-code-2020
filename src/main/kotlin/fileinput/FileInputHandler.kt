@@ -2,7 +2,6 @@ package fileinput
 
 import passwordpolicy.PasswordWithPolicy
 import passwordpolicy.toPasswordWithPolicy
-import util.asDigitList
 import java.io.BufferedReader
 import java.io.File
 
@@ -13,7 +12,7 @@ fun linesAsCharList(pathname: String): List<List<Char>> {
 
 fun asDigitList(pathname: String): List<Int> {
   val inputString = asString(pathname)
-  return asDigitList(inputString)
+  return inputString.map(Character::getNumericValue)
 }
 
 fun asNumberListByNewLine(pathname: String): List<Int> {
