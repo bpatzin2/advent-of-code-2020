@@ -85,6 +85,15 @@ fun day3pt2(): Int {
   return day3pt2("input/day3.txt")
 }
 
-fun main(){
-  println(day3pt2())
+fun main(args: Array<String>){
+  if(!args.contains("--all")){
+    println(day3pt2())
+    return
+  }
+  println("Day 1 Part 1: " + day1pt1())
+  println("Day 1 Part 2: " + day1pt2())
+  println("Day 2 Part 1: " + day2pt1())
+  println("Day 2 Part 2: " + day2pt2())
+  println("Day 3 Part 1: " + day3pt1())
+  println("Day 3 Part 2: " + day3pt2())
 }
