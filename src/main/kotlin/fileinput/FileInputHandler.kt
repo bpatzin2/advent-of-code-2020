@@ -6,6 +6,11 @@ import util.asDigitList
 import java.io.BufferedReader
 import java.io.File
 
+fun linesAsCharList(pathname: String): List<List<Char>> {
+  val strList = File(pathname).readLines()
+  return strList.map{s -> s.toList()}
+}
+
 fun asDigitList(pathname: String): List<Int> {
   val inputString = asString(pathname)
   return asDigitList(inputString)
