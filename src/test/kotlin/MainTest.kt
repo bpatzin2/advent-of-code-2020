@@ -36,4 +36,9 @@ class MainTest {
   fun day2p2TestInput_works() {
     assertEquals(1, day2pt2("input/day2Test2.txt"))
   }
+
+  @Test
+  fun day3p1TestInput_works() {
+    assertEquals(7, day3pt1("input/day3Test.txt"))
+  }
 }

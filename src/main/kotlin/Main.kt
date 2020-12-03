@@ -1,8 +1,10 @@
 import fileinput.asDigitList
 import fileinput.asNumberListByNewLine
+import fileinput.linesAsCharList
 import fileinput.toPasswordsWithPolicies
 import findbysum.findPair
 import findbysum.findTriplet
+import forest.countTreesOnPath
 import inversecaptcha.inverseCaptcha
 import passwordpolicy.PasswordWithPolicy
 
@@ -51,6 +53,14 @@ fun day2pt2(pathname: String): Int {
 
 fun day2pt2(): Int {
   return day2pt2("input/day2.txt")
+}
+
+fun day3pt1(pathname: String): Int {
+  val fileInput = linesAsCharList(pathname)
+  val givenRight = 3
+  val givenDown = 1
+  return countTreesOnPath(
+    fileInput, givenRight, givenDown)
 }
 
 fun main(){
