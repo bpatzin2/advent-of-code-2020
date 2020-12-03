@@ -63,6 +63,10 @@ fun day3pt1(pathname: String): Int {
     fileInput, givenRight, givenDown)
 }
 
+fun day3pt1(): Int {
+  return day3pt1("input/day3.txt")
+}
+
 fun main(){
-  println(day2pt2())
+  println(day3pt1())
 }
