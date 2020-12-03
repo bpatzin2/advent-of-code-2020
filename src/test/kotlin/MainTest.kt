@@ -51,4 +51,9 @@ class MainTest {
   fun day3p2TestInput_works() {
     assertEquals(336, day3pt2("input/day3Test.txt"))
   }
+
+  @Test
+  fun day3p2_works() {
+    assertEquals(1355323200, day3pt2())
+  }
 }

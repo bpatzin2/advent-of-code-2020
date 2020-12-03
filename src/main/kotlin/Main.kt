@@ -78,10 +78,13 @@ fun day3pt2(pathname: String): Int {
   val fileInput = linesAsCharList(pathname)
   val treesPerSlope = givenRightDownSlopes.map{slope ->
     countTreesOnPath(fileInput, slope[0], slope[1])}
-  println(treesPerSlope)
   return treesPerSlope.reduce(Int::times)
 }
 
+fun day3pt2(): Int {
+  return day3pt2("input/day3.txt")
+}
+
 fun main(){
-  println(day3pt1())
+  println(day3pt2())
 }
