@@ -120,4 +120,6 @@ fun main(args: Array<String>){
   println("Day 2 Part 2: " + day2pt2())
   println("Day 3 Part 1: " + day3pt1())
   println("Day 3 Part 2: " + day3pt2())
+  println("Day 4 Part 1: " + day4pt1())
+  println("Day 4 Part 2: " + day4pt2())
 }
