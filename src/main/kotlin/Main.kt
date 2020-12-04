@@ -7,7 +7,7 @@ import findbysum.findTriplet
 import forest.countTreesOnPath
 import inversecaptcha.inverseCaptcha
 import passport.fromStringBatches
-import passport.isValid
+import passport.hasAllRequiredFields
 import passwordpolicy.PasswordWithPolicy
 import java.io.File
 
@@ -91,7 +91,7 @@ fun day3pt2(): Int {
 fun day4pt1(pathname: String): Int {
   val strList = File(pathname).readLines()
   val passports = fromStringBatches(strList)
-  return passports.filter{p -> isValid(p)}.size
+  return passports.filter{p -> hasAllRequiredFields(p)}.size
 }
 
 fun day4pt1(): Int {

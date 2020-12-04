@@ -9,7 +9,8 @@ val REQUIRED_FIELDS = listOf(
   "ecl",
   "pid",
 )
-fun isValid(map: Map<String, String>): Boolean{
+
+fun hasAllRequiredFields(map: Map<String, String>): Boolean{
   return map.keys.containsAll(REQUIRED_FIELDS)
 }
 

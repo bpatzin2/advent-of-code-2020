@@ -10,7 +10,7 @@ class TestPassport {
   fun isValid_falseForEmptyMap() {
     val emptyPassport = mapOf<String, String>()
     assertEquals(false,
-      isValid(emptyPassport))
+      hasAllRequiredFields(emptyPassport))
   }
 
   @Test
@@ -24,7 +24,7 @@ class TestPassport {
       "ecl" to "a",
     )
     assertEquals(false,
-      isValid(passport))
+      hasAllRequiredFields(passport))
   }
 
   @Test
@@ -39,7 +39,7 @@ class TestPassport {
       "pid" to "a",
     )
     assertEquals(true,
-      isValid(passport))
+      hasAllRequiredFields(passport))
   }
 
   @Test
