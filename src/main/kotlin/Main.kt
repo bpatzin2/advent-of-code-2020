@@ -6,7 +6,11 @@ import findbysum.findPair
 import findbysum.findTriplet
 import forest.countTreesOnPath
 import inversecaptcha.inverseCaptcha
+import passport.fromStringBatches
+import passport.hasAllRequiredFields
+import passport.isValid
 import passwordpolicy.PasswordWithPolicy
+import java.io.File
 
 fun day1From2017(): Long {
   val numberList = asDigitList("input/input2017Day1Pt1.txt")
@@ -85,9 +89,29 @@ fun day3pt2(): Int {
   return day3pt2("input/day3.txt")
 }
 
+fun day4pt1(pathname: String): Int {
+  val strList = File(pathname).readLines()
+  val passports = fromStringBatches(strList)
+  return passports.filter{p -> hasAllRequiredFields(p)}.size
+}
+
+fun day4pt1(): Int {
+  return day4pt1("input/day4.txt")
+}
+
+fun day4pt2(pathname: String): Int {
+  val strList = File(pathname).readLines()
+  val passports = fromStringBatches(strList)
+  return passports.filter{p -> isValid(p) }.size
+}
+
+fun day4pt2(): Int {
+  return day4pt2("input/day4.txt")
+}
+
 fun main(args: Array<String>){
   if(!args.contains("--all")){
-    println(day3pt2())
+    println(day4pt2())
     return
   }
   println("Day 1 Part 1: " + day1pt1())

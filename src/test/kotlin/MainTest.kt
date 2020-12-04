@@ -56,4 +56,24 @@ class MainTest {
   fun day3p2_works() {
     assertEquals(1355323200, day3pt2())
   }
+
+  @Test
+  fun day4p1TestInput_works() {
+    assertEquals(2, day4pt1("input/day4Test.txt"))
+  }
+
+  @Test
+  fun day4p1_works() {
+    assertEquals(254, day4pt1("input/day4.txt"))
+  }
+
+  @Test
+  fun day4p2TestInput_works() {
+    assertEquals(2, day4pt2("input/day4Test.txt"))
+  }
+
+  @Test
+  fun day4p2_works() {
+    assertEquals(184, day4pt1("input/day4.txt"))
+  }
 }
