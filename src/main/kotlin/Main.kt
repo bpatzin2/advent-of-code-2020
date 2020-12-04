@@ -6,7 +6,10 @@ import findbysum.findPair
 import findbysum.findTriplet
 import forest.countTreesOnPath
 import inversecaptcha.inverseCaptcha
+import passport.fromStringBatches
+import passport.isValid
 import passwordpolicy.PasswordWithPolicy
+import java.io.File
 
 fun day1From2017(): Long {
   val numberList = asDigitList("input/input2017Day1Pt1.txt")
@@ -83,6 +86,12 @@ fun day3pt2(pathname: String): Int {
 
 fun day3pt2(): Int {
   return day3pt2("input/day3.txt")
+}
+
+fun day4pt1(pathname: String): Int {
+  val strList = File(pathname).readLines()
+  val passports = fromStringBatches(strList)
+  return passports.filter{p -> isValid(p)}.size
 }
 
 fun main(args: Array<String>){
