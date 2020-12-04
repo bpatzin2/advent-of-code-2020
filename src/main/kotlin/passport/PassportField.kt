@@ -52,17 +52,10 @@ fun isHgtValid(value: String): Boolean {
   return false
 }
 
-val VALID_COLORS = listOf(
-  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-  'a', 'b', 'c', 'd', 'e', 'f',
-)
 //hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
 fun isHclValid(value: String): Boolean {
-  if(!value.startsWith("#") || value.count() != 7){
-    return false
-  }
-  val color = value.removePrefix("#")
-  return VALID_COLORS.containsAll(color.toList())
+  val regex = Regex("^#[a-f0-9]{6}\$")
+  return regex.containsMatchIn(value)
 }
 
 val VALID_EYES = listOf(
