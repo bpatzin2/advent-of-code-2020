@@ -19,20 +19,17 @@ fun isFieldValid(key: String, value: String): Boolean{
 
 //byr (Birth Year) - four digits; at least 1920 and at most 2002.
 fun isByrValid(value: String): Boolean {
-  val year = value.toIntOrNull() ?: return false
-  return year in 1920..2002
+  return isStrInRange(value, 1920, 2002)
 }
 
 //iyr (Issue Year) - four digits; at least 2010 and at most 2020.
 fun isIyrValid(value: String): Boolean {
-  val year = value.toIntOrNull() ?: return false
-  return year in 2010..2020
+  return isStrInRange(value, 2010, 2020)
 }
 
 //eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
 fun isEyrValid(value: String): Boolean {
-  val year = value.toIntOrNull() ?: return false
-  return year in 2020..2030
+  return isStrInRange(value, 2020, 2030)
 }
 
 //hgt (Height) - a number followed by either cm or in:
@@ -41,13 +38,12 @@ fun isEyrValid(value: String): Boolean {
 fun isHgtValid(value: String): Boolean {
   if(value.endsWith("cm")){
     val cmsStr = value.removeSuffix("cm")
-    val cms = cmsStr.toIntOrNull() ?: return false
-    return cms in 150..193
+    return isStrInRange(cmsStr, 150, 193)
   }
   if(value.endsWith("in")){
     val insStr = value.removeSuffix("in")
-    val ins = insStr.toIntOrNull() ?: return false
-    return ins in 59..76
+    return isStrInRange(insStr, 59, 76)
+
   }
   return false
 }
@@ -69,3 +65,8 @@ fun isEclValid(value: String): Boolean =
 fun isPidValid(value: String): Boolean =
   value.count() == 9 &&
     value.toIntOrNull() != null
+
+private fun isStrInRange(value: String, start: Int, end: Int): Boolean {
+  val valInt = value.toIntOrNull() ?: return false
+  return valInt in start..end
+}
