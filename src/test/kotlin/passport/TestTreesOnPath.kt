@@ -7,14 +7,14 @@ import kotlin.test.assertTrue
 class TestPassport {
 
   @Test
-  fun isValid_falseForEmptyMap() {
+  fun hasAllRequiredFields_falseForEmptyMap() {
     val emptyPassport = mapOf<String, String>()
     assertEquals(false,
       hasAllRequiredFields(emptyPassport))
   }
 
   @Test
-  fun isValid_falseForMissingOneRequiredField() {
+  fun hasAllRequiredFields_falseForMissingOneRequiredField() {
     val passport = mapOf(
       "byr" to "a",
       "iyr" to "a",
@@ -28,7 +28,7 @@ class TestPassport {
   }
 
   @Test
-  fun isValid_trueForAllRequiredField() {
+  fun hasAllRequiredFields_trueForAllRequiredField() {
     val passport = mapOf(
       "byr" to "a",
       "iyr" to "a",
