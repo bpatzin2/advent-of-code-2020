@@ -56,4 +56,12 @@ class TestPassport {
     assertTrue(actualPassports[1].containsKey("ecl"))
   }
 
+  @Test
+  fun isValid_falseForEmptyMap() {
+    val emptyPassport = mapOf<String, String>()
+    assertEquals(false,
+      isValid(emptyPassport)
+    )
+  }
+
 }
