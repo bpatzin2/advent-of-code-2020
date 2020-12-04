@@ -22,12 +22,10 @@ fun fromStringBatches(batch: List<String>): List<Map<String, String>> {
   for(str in batch){
     if(str.isBlank()){
       passports.add(currMap)
-      currMap = mutableMapOf<String, String>()
+      currMap = mutableMapOf()
       continue
     }
     val fields = str.split(" ")
-    println("FIELDS")
-    println(fields)
     for (field in fields) {
       val keyVal = field.split(":")
       currMap[keyVal[0]] = keyVal[1]

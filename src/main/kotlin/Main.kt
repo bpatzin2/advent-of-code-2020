@@ -94,9 +94,13 @@ fun day4pt1(pathname: String): Int {
   return passports.filter{p -> isValid(p)}.size
 }
 
+fun day4pt1(): Int {
+  return day4pt1("input/day4.txt")
+}
+
 fun main(args: Array<String>){
   if(!args.contains("--all")){
-    println(day3pt2())
+    println(day4pt1())
     return
   }
   println("Day 1 Part 1: " + day1pt1())
