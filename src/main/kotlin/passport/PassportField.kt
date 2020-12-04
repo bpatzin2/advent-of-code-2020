@@ -62,16 +62,10 @@ val VALID_EYES = listOf(
 "amb", "blu", "brn", "gry", "grn", "hzl", "oth",
 )
 //ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-fun isEclValid(value: String): Boolean {
-  return VALID_EYES.contains(value)
-}
+fun isEclValid(value: String): Boolean =
+  VALID_EYES.contains(value)
 
 //pid (Passport ID) - a nine-digit number, including leading zeroes.
-fun isPidValid(value: String): Boolean {
-  if(value.count() != 9){
-    return false
-  }
-
-  value.toIntOrNull() ?: return false
-  return true
-}
+fun isPidValid(value: String): Boolean =
+  value.count() == 9 &&
+    value.toIntOrNull() != null
