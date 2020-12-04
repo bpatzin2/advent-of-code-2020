@@ -102,7 +102,7 @@ fun day4pt1(): Int {
 fun day4pt2(pathname: String): Int {
   val strList = File(pathname).readLines()
   val passports = fromStringBatches(strList)
-  return passports.filter{p -> isValid(p) }.size
+  return passports.filter(::isValid).size
 }
 
 fun day4pt2(): Int {
