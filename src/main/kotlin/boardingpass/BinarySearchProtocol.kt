@@ -1,17 +1,20 @@
 package boardingpass
 
+import java.lang.RuntimeException
+
 fun bspRange(range: IntRange, bsp: String, lowMatch: Char): Int {
-  var currRange = range
-  for (lowOrHigh in bsp) {
-    currRange = if (lowOrHigh == lowMatch) {
+  val resultRange = bsp.foldRight(range){lowOrHigh, currRange ->
+    if (lowOrHigh == lowMatch) {
       firstHalf(currRange)
     } else {
       secondHalf(currRange)
     }
   }
-  return midpoint(currRange)
+  if(resultRange.count() != 1){
+    throw RuntimeException("bsp didn't complete, remaining range: $resultRange")
+  }
+  return resultRange.first
 }
 
-private fun midpoint(range: IntRange) = (range.first + range.last) / 2
 private fun firstHalf(range: IntRange) = range.first .. (range.last - (range.count() / 2))
 private fun secondHalf(range: IntRange) = (range.first + (range.count() / 2)) .. range.last
