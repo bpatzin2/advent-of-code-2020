@@ -117,9 +117,13 @@ fun day5pt1(pathname: String): Int {
   return boardingPasses.maxOf(BoardingPass::seatId)
 }
 
+fun day5pt1(): Int {
+  return day5pt1("input/day5.txt")
+}
+
 fun main(args: Array<String>){
   if(!args.contains("--all")){
-//    println(day5pt1())
+    println(day5pt1())
     return
   }
   println("Day 1 Part 1: " + day1pt1())
