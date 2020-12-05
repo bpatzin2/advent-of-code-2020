@@ -18,10 +18,10 @@ fun fromString(rowColBsp: String): BoardingPass{
 
 fun findSeat(passes: List<BoardingPass>): Int{
   val sortedOccupiableSeats = passes.map{p -> p.seatId()}.sorted()
-  return missingInt(sortedOccupiableSeats)
+  return findGap(sortedOccupiableSeats)
 }
 
-fun missingInt(intsWithGap: List<Int>): Int {
+fun findGap(intsWithGap: List<Int>): Int {
   val fullRange = intsWithGap.first()..intsWithGap.last()
   return fullRange.first { r -> !intsWithGap.contains(r) }
 }
