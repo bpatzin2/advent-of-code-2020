@@ -1,3 +1,6 @@
+import boardingpass.BoardingPass
+import boardingpass.findSeat
+import boardingpass.fromString
 import fileinput.asDigitList
 import fileinput.asNumberListByNewLine
 import fileinput.linesAsCharList
@@ -109,9 +112,29 @@ fun day4pt2(): Int {
   return day4pt2("input/day4.txt")
 }
 
+fun day5pt1(pathname: String): Int {
+  val strList = File(pathname).readLines()
+  val boardingPasses = strList.map(::fromString)
+  return boardingPasses.maxOf(BoardingPass::seatId)
+}
+
+fun day5pt1(): Int {
+  return day5pt1("input/day5.txt")
+}
+
+fun day5pt2(pathname: String): Int {
+  val strList = File(pathname).readLines()
+  val boardingPasses = strList.map(::fromString)
+  return findSeat(boardingPasses)
+}
+
+fun day5pt2(): Int {
+  return day5pt2("input/day5.txt")
+}
+
 fun main(args: Array<String>){
   if(!args.contains("--all")){
-    println(day4pt2())
+    println(day5pt2())
     return
   }
   println("Day 1 Part 1: " + day1pt1())
@@ -122,4 +145,6 @@ fun main(args: Array<String>){
   println("Day 3 Part 2: " + day3pt2())
   println("Day 4 Part 1: " + day4pt1())
   println("Day 4 Part 2: " + day4pt2())
+  println("Day 5 Part 1: " + day5pt1())
+  println("Day 5 Part 2: " + day5pt2())
 }

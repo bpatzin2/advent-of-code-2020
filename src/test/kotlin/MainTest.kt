@@ -23,8 +23,8 @@ class MainTest {
   }
 
   @Test
-  fun day1p2RealInput_works() {
-    assertEquals(230057040, day1pt2("input/day1.txt"))
+  fun day1p2_works() {
+    assertEquals(230057040, day1pt2())
   }
 
   @Test
@@ -33,8 +33,18 @@ class MainTest {
   }
 
   @Test
+  fun day2p1_works() {
+    assertEquals(465, day2pt1())
+  }
+
+  @Test
   fun day2p2TestInput_works() {
     assertEquals(1, day2pt2("input/day2Test2.txt"))
+  }
+
+  @Test
+  fun day2p2_works() {
+    assertEquals(294, day2pt2())
   }
 
   @Test
@@ -64,7 +74,7 @@ class MainTest {
 
   @Test
   fun day4p1_works() {
-    assertEquals(254, day4pt1("input/day4.txt"))
+    assertEquals(254, day4pt1())
   }
 
   @Test
@@ -74,6 +84,21 @@ class MainTest {
 
   @Test
   fun day4p2_works() {
-    assertEquals(184, day4pt2("input/day4.txt"))
+    assertEquals(184, day4pt2())
+  }
+
+  @Test
+  fun day5p1TestInput_works() {
+    assertEquals(820, day5pt1("input/day5Test.txt"))
+  }
+
+  @Test
+  fun day5p1_works() {
+    assertEquals(850, day5pt1())
+  }
+
+  @Test
+  fun day5p2_works() {
+    assertEquals(599, day5pt2())
   }
 }
