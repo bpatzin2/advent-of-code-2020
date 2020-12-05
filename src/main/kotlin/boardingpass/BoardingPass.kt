@@ -9,7 +9,7 @@ data class BoardingPass(val rowBsp: String, val columnBsp: String){
   fun colNumber() = bspRange(0 until NUM_COLS, columnBsp, 'L')
 }
 
-//FBFBBFFRLR
+//FBFBBFF RLR
 fun fromString(rowColBsp: String): BoardingPass{
   val rowBsp = rowColBsp.substring(0, 7)
   val colBsp = rowColBsp.substring(7)
@@ -22,6 +22,6 @@ fun findSeat(passes: List<BoardingPass>): Int{
 }
 
 fun missingInt(intsWithGap: List<Int>): Int {
-  val intRange = intsWithGap.first()..intsWithGap.last()
-  return intRange.first { r -> !intsWithGap.contains(r) }
+  val fullRange = intsWithGap.first()..intsWithGap.last()
+  return fullRange.first { r -> !intsWithGap.contains(r) }
 }
