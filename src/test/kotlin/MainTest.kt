@@ -84,6 +84,11 @@ class MainTest {
 
   @Test
   fun day5p1_works() {
-    assertEquals(850, day5pt1("input/day5 .txt"))
+    assertEquals(850, day5pt1("input/day5.txt"))
+  }
+
+  @Test
+  fun day5p2_works() {
+    assertEquals(599, day5pt2())
   }
 }

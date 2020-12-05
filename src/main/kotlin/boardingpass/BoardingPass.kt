@@ -46,3 +46,13 @@ fun fromString(rowColBsp: String): BoardingPass{
   val colBsp = rowColBsp.substring(7)
   return BoardingPass(rowBsp, colBsp)
 }
+
+fun findSeat(passes: List<BoardingPass>): Int{
+  val sortedOccupiableSeats = passes.map{p -> p.seatId()}.sorted()
+  return missingInt(sortedOccupiableSeats)
+}
+
+fun missingInt(intsWithGap: List<Int>): Int {
+  val intRange = intsWithGap.first()..intsWithGap.last()
+  return intRange.first { r -> !intsWithGap.contains(r) }
+}

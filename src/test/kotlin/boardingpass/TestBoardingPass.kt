@@ -43,4 +43,9 @@ class TestBoardingPass {
     assertEquals( col, boardingPass.colNumber())
     assertEquals( seat, boardingPass.seatId())
   }
+
+  @Test
+  fun missingInt_works() {
+    assertEquals( 4, missingInt(listOf(2, 3, 5, 6)))
+  }
 }
