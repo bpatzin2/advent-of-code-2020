@@ -1,8 +1,8 @@
 import boardingpass.BoardingPass
 import boardingpass.findSeat
 import boardingpass.fromString
-import customs.allFromStringAnyYes
-import customs.allFromStringEveryYes
+import customs.createDeclarationsByAnyYes
+import customs.createDeclarationsByEveryYes
 import fileinput.*
 import findbysum.findPair
 import findbysum.findTriplet
@@ -133,7 +133,7 @@ fun day5pt2(): Int {
 
 fun day6pt1(pathname: String): Int {
   val str = asString(pathname)
-  val declarations = allFromStringAnyYes(str)
+  val declarations = createDeclarationsByAnyYes(str)
   return declarations
     .map{d -> d.yesAnswers}
     .map{s -> s.count()}
@@ -146,7 +146,7 @@ fun day6pt1(): Int {
 
 fun day6pt2(pathname: String): Int {
   val str = asString(pathname)
-  val declarations = allFromStringEveryYes(str)
+  val declarations = createDeclarationsByEveryYes(str)
   return declarations
     .map{d -> d.yesAnswers}
     .map{s -> s.count()}

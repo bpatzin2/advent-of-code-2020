@@ -17,7 +17,7 @@ class TestCustomsDeclaration {
         xy
         x
       """.trimIndent()
-    val actualDeclarations = allFromStringAnyYes(batchStr)
+    val actualDeclarations = createDeclarationsByAnyYes(batchStr)
     assertEquals(
       setOf('a', 'b', 'c', 'd'),
       actualDeclarations[0].yesAnswers)
@@ -38,7 +38,7 @@ class TestCustomsDeclaration {
         xy
         axy
       """.trimIndent()
-    val actualDeclarations = allFromStringEveryYes(batchStr)
+    val actualDeclarations = createDeclarationsByEveryYes(batchStr)
     assertEquals(
       setOf('c'),
       actualDeclarations[0].yesAnswers)
