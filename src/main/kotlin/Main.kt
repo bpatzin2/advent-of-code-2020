@@ -2,6 +2,7 @@ import boardingpass.BoardingPass
 import boardingpass.findSeat
 import boardingpass.fromString
 import customs.allFromStringAnyYes
+import customs.allFromStringEveryYes
 import fileinput.*
 import findbysum.findPair
 import findbysum.findTriplet
@@ -143,9 +144,22 @@ fun day6pt1(): Int {
   return day6pt1("input/day6.txt")
 }
 
+fun day6pt2(pathname: String): Int {
+  val str = asString(pathname)
+  val declarations = allFromStringEveryYes(str)
+  return declarations
+    .map{d -> d.yesAnswers}
+    .map{s -> s.count()}
+    .reduce(Int::plus)
+}
+
+fun day6pt2(): Int {
+  return day6pt2("input/day6.txt")
+}
+
 fun main(args: Array<String>){
   if(!args.contains("--all")){
-    println(day6pt1())
+    println(day6pt2())
     return
   }
   println("Day 1 Part 1: " + day1pt1())
