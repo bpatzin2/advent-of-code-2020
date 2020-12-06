@@ -8,13 +8,19 @@ package customs
 data class CustomsDeclaration(val yesAnswers: Set<Char>)
 
 fun anyYesAnswer(strs: List<String>): CustomsDeclaration{
-   val charSet: Set<Char> = strs.map(String::toList).flatten().toSet()
+   val charSet: Set<Char> = strs
+      .map(String::toSet)
+      .reduce(Set<Char>::union)
+
    return CustomsDeclaration(charSet)
 }
 
 fun everyYesAnswer(strs: List<String>): CustomsDeclaration{
-   val charSets: List<Set<Char>> = strs.map(String::toList).map(List<Char>::toSet)
-   return CustomsDeclaration(charSets.reduce{s1, s2 -> s1.intersect(s2)})
+   val charSets: Set<Char> = strs
+      .map(String::toSet)
+      .reduce(Set<Char>::intersect)
+
+   return CustomsDeclaration(charSets)
 }
 
 fun allFromStringEveryYes(str: String): List<CustomsDeclaration>{
