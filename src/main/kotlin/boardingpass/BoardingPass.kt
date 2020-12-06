@@ -5,8 +5,8 @@ const val NUM_COLS = 8
 
 data class BoardingPass(val rowBsp: String, val columnBsp: String){
   fun seatId() = rowNumber() * 8 + colNumber()
-  fun rowNumber() = bspRange(0 until NUM_ROWS, rowBsp, 'F')
-  fun colNumber() = bspRange(0 until NUM_COLS, columnBsp, 'L')
+  fun rowNumber() = bsp(0 until NUM_ROWS, rowBsp, 'F')
+  fun colNumber() = bsp(0 until NUM_COLS, columnBsp, 'L')
 }
 
 //FBFBBFF RLR

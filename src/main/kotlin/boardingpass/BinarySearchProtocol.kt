@@ -2,9 +2,9 @@ package boardingpass
 
 import java.lang.RuntimeException
 
-fun bspRange(range: IntRange, bsp: String, lowMatch: Char): Int {
-  val resultRange = bsp.fold(range){currRange, lowOrHigh ->
-    if (lowOrHigh == lowMatch) {
+fun bsp(range: IntRange, bspInstructions: String, lowInstruction: Char): Int {
+  val resultRange = bspInstructions.fold(range){ currRange, instruction ->
+    if (instruction == lowInstruction) {
       firstHalf(currRange)
     } else {
       secondHalf(currRange)
