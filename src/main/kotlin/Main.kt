@@ -1,10 +1,9 @@
 import boardingpass.BoardingPass
 import boardingpass.findSeat
 import boardingpass.fromString
-import fileinput.asDigitList
-import fileinput.asNumberListByNewLine
-import fileinput.linesAsCharList
-import fileinput.toPasswordsWithPolicies
+import customs.allFromStringAnyYes
+import customs.allFromStringEveryYes
+import fileinput.*
 import findbysum.findPair
 import findbysum.findTriplet
 import forest.countTreesOnPath
@@ -132,9 +131,35 @@ fun day5pt2(): Int {
   return day5pt2("input/day5.txt")
 }
 
+fun day6pt1(pathname: String): Int {
+  val str = asString(pathname)
+  val declarations = allFromStringAnyYes(str)
+  return declarations
+    .map{d -> d.yesAnswers}
+    .map{s -> s.count()}
+    .reduce(Int::plus)
+}
+
+fun day6pt1(): Int {
+  return day6pt1("input/day6.txt")
+}
+
+fun day6pt2(pathname: String): Int {
+  val str = asString(pathname)
+  val declarations = allFromStringEveryYes(str)
+  return declarations
+    .map{d -> d.yesAnswers}
+    .map{s -> s.count()}
+    .reduce(Int::plus)
+}
+
+fun day6pt2(): Int {
+  return day6pt2("input/day6.txt")
+}
+
 fun main(args: Array<String>){
   if(!args.contains("--all")){
-    println(day5pt2())
+    println(day6pt2())
     return
   }
   println("Day 1 Part 1: " + day1pt1())

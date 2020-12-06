@@ -45,7 +45,7 @@ class TestBoardingPass {
   }
 
   @Test
-  fun missingInt_works() {
-    assertEquals( 4, missingInt(listOf(2, 3, 5, 6)))
+  fun findGap_works() {
+    assertEquals( 4, findGap(listOf(2, 3, 5, 6)))
   }
 }
