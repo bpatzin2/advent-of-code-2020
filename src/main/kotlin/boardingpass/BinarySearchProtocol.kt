@@ -3,7 +3,7 @@ package boardingpass
 import java.lang.RuntimeException
 
 fun bspRange(range: IntRange, bsp: String, lowMatch: Char): Int {
-  val resultRange = bsp.foldRight(range){lowOrHigh, currRange ->
+  val resultRange = bsp.fold(range){currRange, lowOrHigh ->
     if (lowOrHigh == lowMatch) {
       firstHalf(currRange)
     } else {

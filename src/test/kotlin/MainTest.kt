@@ -119,6 +119,6 @@ class MainTest {
 
   @Test
   fun day6p2_works() {
-    assertEquals(3305, day6pt1())
+    assertEquals(3305, day6pt2())
   }
 }
