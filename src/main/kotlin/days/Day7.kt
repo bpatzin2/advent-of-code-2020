@@ -1,9 +1,9 @@
 package days
 
-import countBagsContainedIn
+import luggage.countBagsContainedIn
 import fileinput.asString
-import allBagsThatContain
-import parseInput
+import luggage.allBagsThatContain
+import luggage.parseInput
 
 fun day7pt1(pathname: String): Int {
   val inputStr = asString(pathname)

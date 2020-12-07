@@ -1,9 +1,10 @@
+package luggage
+
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 
 data class Rule(val bag: String, val contents: Set<BagContent>)
 data class BagContent(val bag: String, val num: Int)
-
 data class RecursiveContent(val bag: String, val num: Int, val contents: Set<RecursiveContent>)
 
 fun countBagsContainedIn(
@@ -65,7 +66,8 @@ fun unpackBag(
     RecursiveContent(
       contentBag.bag,
       contentBag.num,
-      unpackBag(contentBag.bag, rules))
+      unpackBag(contentBag.bag, rules)
+    )
   }.toSet()
 }
 

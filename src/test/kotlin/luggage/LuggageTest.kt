@@ -1,12 +1,8 @@
 package luggage
 
-import BagContent
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
-import countBagsContainedIn
-import allBagsThatContain
 import org.junit.Test
-import parseInput
 import kotlin.test.assertEquals
 
 class LuggageTest {
