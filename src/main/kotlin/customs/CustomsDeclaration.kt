@@ -1,5 +1,7 @@
 package customs
 
+import groupByEmptyLine
+
 // a
 // ab
 //
@@ -34,6 +36,5 @@ fun createByEveryYes(strs: List<String>): CustomsDeclaration{
 }
 
 private fun answerGroup(str: String): List<List<String>> {
-   val answerGroups: List<String> = str.split(Regex("\n{2,}"))
-   return answerGroups.map { g -> g.split("\n") }
+   return groupByEmptyLine(str)
 }
