@@ -6,7 +6,7 @@ data class BagContent(val bag: String, val num: Int)
 
 data class RecursiveContent(val bag: String, val num: Int, val contents: Set<RecursiveContent>)
 
-fun countNumContained(
+fun countBagsContainedIn(
   bag: String,
   rules: Multimap<String, BagContent>
 ): Int {
@@ -16,40 +16,34 @@ fun countNumContained(
 }
 
 fun recursiveCount(contents: Collection<RecursiveContent>): Int{
-  return contents.map{content -> content.num + ( content.num * recursiveCount(content.contents))}.sum()
+  return contents.map{content ->
+    content.num + ( content.num * recursiveCount(content.contents))
+  }.sum()
 }
 
-fun findAllBagsThatCanContain(
+fun allBagsThatContain(
   bagToFind: String,
   rules: Multimap<String, BagContent>
 ): Set<String> {
-  val unpacked: Multimap<String, RecursiveContent> = unpack(rules)
-  val result: MutableSet<String> = mutableSetOf()
-  unpacked.asMap().forEach { (bag, recursiveContent) ->
-    if(recursiveContains(bagToFind, recursiveContent, unpacked)){
-      result.add(bag)
+  val recursiveRules: Multimap<String, RecursiveContent> = unpack(rules)
+  return recursiveRules
+    .keySet()
+    .filter { bagToSearch ->
+      recursiveContains(bagToFind, bagToSearch, recursiveRules)
     }
-  }
-  return result
+    .toSet()
 }
 
 fun recursiveContains(
   bagToFind: String,
-  unpackedRule: Collection<RecursiveContent>,
+  bagToSearch: String,
   unpackedRules: Multimap<String, RecursiveContent>
 ): Boolean {
-  unpackedRule.forEach { recursiveContent ->
-    if(recursiveContent.bag == bagToFind){
-      return true
-    }
+  val contents = unpackedRules.get(bagToSearch)
+  return contents.any { content ->
+    content.bag == bagToFind ||
+      recursiveContains(bagToFind, content.bag, unpackedRules)
   }
-  unpackedRule.forEach { recursiveContent ->
-    val newRule = unpackedRules.get(recursiveContent.bag)
-    if(recursiveContains(bagToFind, newRule, unpackedRules)){
-      return true
-    }
-  }
-  return false
 }
 
 fun unpack(
@@ -63,19 +57,16 @@ fun unpack(
 }
 
 fun unpackBag(
-  bagToUnpack: String,
+  bag: String,
   rules: Multimap<String, BagContent>,
 ): Set<RecursiveContent> {
-  val result: MutableSet<RecursiveContent> = mutableSetOf()
-  val rule = rules.get(bagToUnpack) ?: return result
-  rule.forEach { contentBag ->
-    result.add(
-      RecursiveContent(
-        contentBag.bag,
-        contentBag.num,
-        unpackBag(contentBag.bag, rules)))
-  }
-  return result
+  val rule = rules.get(bag) ?: return setOf()
+  return rule.map { contentBag ->
+    RecursiveContent(
+      contentBag.bag,
+      contentBag.num,
+      unpackBag(contentBag.bag, rules))
+  }.toSet()
 }
 
 fun parseInput(string: String): Multimap<String, BagContent> {

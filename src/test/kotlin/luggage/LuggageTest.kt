@@ -3,40 +3,40 @@ package luggage
 import BagContent
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
-import countNumContained
-import findAllBagsThatCanContain
+import countBagsContainedIn
+import allBagsThatContain
 import org.junit.Test
 import parseInput
 import kotlin.test.assertEquals
 
 class LuggageTest {
   @Test
-  fun bagsWhichCanRecursivelyContain_falseWhenNoRules() {
+  fun allBagsThatContain_falseWhenNoRules() {
     val rules: Multimap<String, BagContent> = HashMultimap.create()
-    val result = findAllBagsThatCanContain("light red", rules)
+    val result = allBagsThatContain("light red", rules)
     assertEquals(setOf(), result)
   }
 
   @Test
-  fun findAllBagsThatCanContain_whenOneMatchingRule() {
+  fun allBagsThatContain_whenOneMatchingRule() {
     val rules: Multimap<String, BagContent> = HashMultimap.create()
     rules.put("light red", BagContent("bright white", 1))
-    val result: Set<String> = findAllBagsThatCanContain("bright white", rules)
+    val result = allBagsThatContain("bright white", rules)
     assertEquals(setOf("light red"), result)
   }
 
   @Test
-  fun findAllBagsThatCanContain_matchingRecursiveRule() {
+  fun allBagsThatContain_matchingRecursiveRule() {
     val rules: Multimap<String, BagContent> = HashMultimap.create()
     rules.put("light red", BagContent("bright white", 1))
     rules.put("bright white", BagContent("shiny gold", 1))
-    val result: Set<String> = findAllBagsThatCanContain("shiny gold", rules)
+    val result = allBagsThatContain("shiny gold", rules)
     assertEquals(setOf("light red", "bright white"), result)
   }
 
   @Test
-  fun findAllBagsThatCanContain_worksForTestData() {
-    val result: Set<String> = findAllBagsThatCanContain("shiny gold", testInputRules())
+  fun allBagsThatContain_worksForTestData() {
+    val result = allBagsThatContain("shiny gold", testInputRules())
     assertEquals(setOf("light red", "bright white", "muted yellow", "dark orange"), result)
   }
 
@@ -90,16 +90,22 @@ class LuggageTest {
   }
 
   @Test
-  fun testStrInputPt1() {
+  fun allBagsThatContain_testStrInputPt1() {
     val input = parseInput(testInput)
-    val result: Set<String> = findAllBagsThatCanContain("shiny gold", input)
+    val result = allBagsThatContain("shiny gold", input)
     assertEquals(4, result.size)
   }
 
   @Test
-  fun testStrInputPt2() {
+  fun countBagsContainedIn_testInput() {
+    val result = countBagsContainedIn("shiny gold", testInputRules())
+    assertEquals(32, result)
+  }
+
+  @Test
+  fun countBagsContainedIn_strTestInput() {
     val input = parseInput(testInput)
-    val result = countNumContained("shiny gold", input)
+    val result = countBagsContainedIn("shiny gold", input)
     assertEquals(32, result)
   }
 }

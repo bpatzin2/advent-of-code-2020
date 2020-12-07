@@ -1,14 +1,14 @@
 package days
 
-import countNumContained
+import countBagsContainedIn
 import fileinput.asString
-import findAllBagsThatCanContain
+import allBagsThatContain
 import parseInput
 
 fun day7pt1(pathname: String): Int {
   val inputStr = asString(pathname)
   val input = parseInput(inputStr)
-  val result: Set<String> = findAllBagsThatCanContain("shiny gold", input)
+  val result: Set<String> = allBagsThatContain("shiny gold", input)
   return result.size
 }
 
@@ -19,7 +19,7 @@ fun day7pt1(): Int {
 fun day7pt2(pathname: String): Int {
   val inputStr = asString(pathname)
   val input = parseInput(inputStr)
-  return countNumContained("shiny gold", input)
+  return countBagsContainedIn("shiny gold", input)
 }
 
 fun day7pt2(): Int {
