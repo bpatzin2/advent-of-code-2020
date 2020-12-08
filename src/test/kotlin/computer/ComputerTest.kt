@@ -17,7 +17,7 @@ class ComputerTest {
   fun jmp0_halts() {
     assertState(0, listOf(1), 1,
       exe(listOf(
-        Instruction("jmp", 0)
+        JmpInstruction( 0)
       )))
   }
 
@@ -25,8 +25,8 @@ class ComputerTest {
   fun accThenJumpNeg1_halts() {
     assertState(2, listOf(1, 2), 1,
       exe(listOf(
-        Instruction("acc", 2),
-        Instruction("jmp", -1))))
+        AccInstruction(2),
+        JmpInstruction(-1))))
   }
 
     val testInput = """

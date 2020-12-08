@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 class ProgramParserTest {
   @Test
   fun parseInstructions_SingleInstruction() {
-    assertEquals(listOf(Instruction("acc", 2)),
+    assertEquals(listOf(AccInstruction(2)),
       parseInstructions(listOf("acc +2")))
   }
 
@@ -19,9 +19,9 @@ class ProgramParserTest {
   @Test
   fun parseInstructions_multiple() {
     assertEquals(listOf(
-      Instruction("nop", 0),
-      Instruction("acc", 1),
-      Instruction("jmp", -4)),
+      NopInstruction(0),
+      AccInstruction(1),
+      JmpInstruction(-4)),
       parseInstructions(testInputStr.split("\n")))
   }
 }

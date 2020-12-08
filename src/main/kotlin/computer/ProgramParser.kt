@@ -16,6 +16,12 @@ fun parseInstructions(instructionStrs: List<String>): List<Instruction> {
 
 fun parseInstruction(instructionStr: String): Instruction {
   val opAndArg = instructionStr.split(" ")
+  val op = opAndArg[0]
   val arg =  opAndArg[1].removePrefix("+").toInt()
-  return Instruction(opAndArg[0], arg)
+  return when (op) {
+    "acc" -> AccInstruction(arg)
+    "jmp" -> JmpInstruction(arg)
+    "nop" -> NopInstruction(arg)
+    else -> throw RuntimeException("unknown op $op")
+  }
 }

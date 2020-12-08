@@ -1,28 +1,40 @@
 package computer
 
-data class Instruction(val op: String, val arg: Int) {
+interface Instruction {
   fun process(
     initialAcc: Int,
     currentLine: Int,
-  ): InstructionResult {
+  ): InstructionResult
+}
 
-    var nextLineNumber = currentLine + 1
-    var acc = initialAcc
+data class JmpInstruction(val arg: Int): Instruction {
+  override fun process(
+    initialAcc: Int,
+    currentLine: Int
+  ): InstructionResult =
+    InstructionResult(
+    initialAcc,
+    currentLine + arg)
+}
 
-    when (op) {
-      "acc" -> {
-        acc += arg
-      }
-      "jmp" -> {
-        nextLineNumber = currentLine + arg
-      }
-    }
+data class AccInstruction(val arg: Int): Instruction {
+  override fun process(
+    initialAcc: Int,
+    currentLine: Int
+  ): InstructionResult =
+    InstructionResult(
+      initialAcc + arg,
+      currentLine + 1)
+}
 
-    return InstructionResult(
-      acc,
-      nextLineNumber
-    )
-  }
+data class NopInstruction(val arg: Int): Instruction {
+  override fun process(
+    initialAcc: Int,
+    currentLine: Int
+  ): InstructionResult =
+    InstructionResult(
+      initialAcc,
+      currentLine + 1)
 }
 
 data class InstructionResult(val acc: Int, val nextLineNumber: Int)

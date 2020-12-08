@@ -1,9 +1,6 @@
 package halting
 
-import computer.ExecutionState
-import computer.Instruction
-import computer.Program
-import computer.exe
+import computer.*
 
 fun fixCorruptedInstruction(idx: Int, program: Program): Program? {
   val oldInstruction = program.instructions[idx] ?: throw RuntimeException("No instruction at $idx")
@@ -13,9 +10,9 @@ fun fixCorruptedInstruction(idx: Int, program: Program): Program? {
 }
 
 fun fixCorruptedInstruction(instruction: Instruction): Instruction? {
-  return when(instruction.op) {
-    "nop" -> Instruction("jmp", instruction.arg)
-    "jmp" -> Instruction("nop", instruction.arg)
+  return when(instruction) {
+    is NopInstruction -> JmpInstruction(instruction.arg)
+    is JmpInstruction -> NopInstruction(instruction.arg)
     else -> null
   }
 }
