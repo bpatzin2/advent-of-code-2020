@@ -1,9 +1,9 @@
 package days
 
-import halting.exe
+import computer.exe
+import computer.parseInstructions
+import computer.toProgram
 import halting.fixAndRunProgram
-import halting.parseInstructions
-import halting.toProgram
 import java.io.File
 
 fun day8pt1(pathname: String): Int {
@@ -20,7 +20,7 @@ fun day8pt1(): Int {
 fun day8pt2(pathname: String): Int {
   val strList = File(pathname).readLines()
   val instructions = parseInstructions(strList)
-  val resultState = fixAndRunProgram(instructions)!!
+  val resultState = fixAndRunProgram(toProgram(instructions))!!
   return resultState.acc
 }
 
