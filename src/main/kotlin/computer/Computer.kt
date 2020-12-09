@@ -7,7 +7,7 @@ fun exe(instructions: List<Instruction>): ExecutionState {
 
 fun exe(program: Program): ExecutionState {
   var executionState = ExecutionState(program, 0, listOf(), 1)
-  while(!executionState.didAlreadyProcess(executionState.lineToProcess) &&
+  while(!executionState.alreadyProcessedNextLine() &&
     !executionState.terminationSuccessful()){
     executionState = executionState.processNextInstruction()
   }

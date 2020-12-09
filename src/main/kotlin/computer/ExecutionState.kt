@@ -6,17 +6,11 @@ data class ExecutionState(
   val linesProcessed: List<Int>,
   val lineToProcess: Int){
 
-  fun didAlreadyProcess(lineNumber: Int): Boolean{
-    return linesProcessed.contains(lineNumber)
-  }
-
   fun terminationSuccessful(): Boolean{
     return lineToProcess == program.validTerminateIdx()
   }
 
-  fun getInstruction(lineNumber: Int): Instruction {
-    return program.instructions[lineNumber] ?: throw RuntimeException("No instruction at line $lineNumber")
-  }
+  fun alreadyProcessedNextLine() = linesProcessed.contains(lineToProcess)
 
   fun processNextInstruction(): ExecutionState {
     val currInstruction = getInstruction(lineToProcess)
@@ -30,5 +24,9 @@ data class ExecutionState(
       instructionResult.acc,
       newLinesProcessed,
       instructionResult.nextLineNumber)
+  }
+
+  private fun getInstruction(lineNumber: Int): Instruction {
+    return program.instructions[lineNumber] ?: throw RuntimeException("No instruction at line $lineNumber")
   }
 }
