@@ -1,10 +1,10 @@
-package halting
+package programfixing
 
 import computer.*
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class HaltingTest {
+class ProgramFixerTest {
 
   val testInput = """
     nop +0

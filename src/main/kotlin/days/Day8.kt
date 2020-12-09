@@ -3,7 +3,7 @@ package days
 import computer.exe
 import computer.parseInstructions
 import computer.toProgram
-import halting.fixAndRunProgram
+import programfixing.fixAndRunProgram
 import java.io.File
 
 fun day8pt1(pathname: String): Int {
