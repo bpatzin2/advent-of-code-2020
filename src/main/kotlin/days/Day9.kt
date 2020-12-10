@@ -5,8 +5,7 @@ import java.io.File
 
 fun isASumOfPair(num: Long, ints: List<Long>): Boolean{
   val pairs = Sets.combinations(ints.toSet(), 2)
-  return pairs
-    .any{pair -> pair.reduce(Long::plus) == num}
+  return pairs.any{pair -> pair.reduce(Long::plus) == num}
 }
 
 fun firstNotSumOfPrevious(ints: List<Long>, prevCount: Int): Long {

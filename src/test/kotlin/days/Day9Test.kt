@@ -45,7 +45,6 @@ class Day9Test {
     assertEquals(18272118, day9pt1())
   }
 
-
   @Test
   fun findContiguousSet_works() {
     val longs = testInts.split("\n").map{it.toLong()}
