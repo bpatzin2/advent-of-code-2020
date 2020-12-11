@@ -1,5 +1,7 @@
 package seating
 
+import com.google.common.collect.Lists
+
 const val EMPTY_SEAT = 'L'
 const val OCCUPIED_SEAT = '#'
 
@@ -23,10 +25,7 @@ interface SeatingI {
 
   fun printGrid(): String {
     val sb = StringBuilder()
-    for(row in grid){
-      sb.append(row)
-      sb.append("\n")
-    }
+    grid.forEach{row -> sb.append(row).append("\n") }
     sb.append("\n")
     return sb.toString()
   }
@@ -41,15 +40,12 @@ interface SeatingI {
     return currState
   }
 
-  private fun updateState(): SeatingI{
-    val newState = mutableListOf<List<Char>>()
-    for(row in grid.indices){
-      val newRow = mutableListOf<Char>()
-      for(col in grid[row].indices){
-        newRow.add(updateSeat(row, col))
+  /*public-for-testing*/
+  fun updateState(): SeatingI{
+    val newState =
+      grid.indices.map{ row ->
+        grid[row].indices.map{col -> updateSeat(row, col)}
       }
-      newState.add(newRow)
-    }
     return new(newState)
   }
 
@@ -72,19 +68,10 @@ interface SeatingI {
   }
 
   private fun getAdjacentSeats(row: Int, col: Int): List<Char> {
-    val adjSeats = mutableListOf<Char>()
-    for (yDir in -1..1) {
-      for (xDir in -1..1) {
-        if (xDir == 0 && yDir == 0) {
-          continue
-        }
-        val nextSeat = getNextSeat(row, col, xDir, yDir)
-        if(nextSeat != null){
-          adjSeats.add(nextSeat)
-        }
-      }
-    }
-    return adjSeats
+    val dirs = Lists.cartesianProduct(listOf(-1, 0, 1), listOf(-1, 0, 1))
+    return dirs
+      .filter {(xDir, yDir) -> !(xDir == 0 && yDir == 0) }
+      .mapNotNull{(xDir, yDir) -> getNextSeat(row, col, xDir, yDir)}
   }
 }
 
