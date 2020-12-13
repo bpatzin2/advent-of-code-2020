@@ -6,7 +6,7 @@ data class FerryWithWaypoint(
   val wayPoint: Waypoint): FerryI {
 
   override fun applyMove(dir: Char, value: Int): FerryWithWaypoint{
-    return FerryWithWaypoint(nsPos, ewPos, wayPoint.applyMove(dir, value))
+    return FerryWithWaypoint(nsPos, ewPos, wayPoint.move(dir, value))
   }
 
   override fun applyForward(value: Int): FerryWithWaypoint{
@@ -18,12 +18,12 @@ data class FerryWithWaypoint(
   }
 
   override fun applyTurn(dir: Char, turnDegrees: Int): FerryWithWaypoint{
-    return FerryWithWaypoint(nsPos, ewPos, wayPoint.applyTurn(dir, turnDegrees))
+    return FerryWithWaypoint(nsPos, ewPos, wayPoint.turn(dir, turnDegrees))
   }
 }
 
 data class Waypoint(val nsDist: Int, val ewDist: Int){
-  fun applyMove(dir: Char, value: Int): Waypoint{
+  fun move(dir: Char, value: Int): Waypoint{
     return when(dir){
       NORTH -> Waypoint(nsDist + value, ewDist)
       SOUTH -> Waypoint(nsDist - value, ewDist)
@@ -33,7 +33,7 @@ data class Waypoint(val nsDist: Int, val ewDist: Int){
     }
   }
 
-  fun applyTurn(dir: Char, turnDegrees: Int): Waypoint{
+  fun turn(dir: Char, turnDegrees: Int): Waypoint{
     return if((dir == LEFT && turnDegrees == 90) ||
       (dir == RIGHT && turnDegrees == 270)){
       Waypoint(ewDist, nsDist * -1)
