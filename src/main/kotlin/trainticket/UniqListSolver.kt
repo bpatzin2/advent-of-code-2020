@@ -7,7 +7,7 @@ package trainticket
 // in the result is duplicated
 fun findUniqList(possibilities: List<List<String>>): List<String>?{
   val sizes = possibilities.map{it.size}
-  if(sizes.all { it == 1 }) return possibilities.map{it[0]}
+  if(sizes.all{it == 1}) return possibilities.map{it[0]}
   if(sizes.any{it == 0}) return null
 
   val selectedIdx = selectNextIdx(possibilities)
