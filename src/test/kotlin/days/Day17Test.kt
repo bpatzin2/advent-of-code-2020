@@ -1,23 +1,9 @@
 package days
 
-import conway.parse
-import conway.nextState
 import org.junit.Test
 import kotlin.test.assertEquals
 
 class Day17Test {
-  @Test
-  fun nextState_works() {
-    val startingState = """
-      .#.
-      ..#
-      ###
-    """.trimIndent().split("\n")
-    val initialState = parse(startingState, 3)
-    val nextState = nextState(initialState)
-    assertEquals(11, nextState.size)
-  }
-
   @Test
   fun day17p1TestInput_works() {
     assertEquals(112, day17pt1("input/day17Test.txt"))
