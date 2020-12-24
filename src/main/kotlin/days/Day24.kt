@@ -3,6 +3,8 @@ package days
 import com.google.common.collect.Sets
 import java.io.File
 
+data class Coord(val x: Int, val y: Int)
+
 data class Grid(var location: Coord, val flippedTiles: List<Coord>){
   fun move(lines: List<List<String>>): Grid{
     var currGrid = this
