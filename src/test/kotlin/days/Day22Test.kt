@@ -22,6 +22,6 @@ class Day22Test {
 
   @Test
   fun day22p2_works() {
-//    assertEquals("hkflr,ctmcqjf,bfrq,srxphcm,snmxl,zvx,bd,mqvk", day22pt2())
+    assertEquals(32731L, day22pt2())
   }
 }
