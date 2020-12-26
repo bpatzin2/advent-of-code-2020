@@ -4,39 +4,40 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class Day23Test {
+
+  private fun assertGame(expectedCups: List<Int>, expectedCup: Int, game: Game){
+    assertEquals(expectedCups, game.cupsList())
+    assertEquals(expectedCup, game.currCup())
+  }
+
   @Test
   fun oneRound() {
     val cups = listOf(3,8,9,1,2,5,4,6,7)
-    val expectedResult = Game(listOf(2, 8, 9, 1, 5, 4, 6, 7, 3))
-    assertEquals(expectedResult, Game(cups).playRound())
-    assertEquals(expectedResult, Game(cups).playRounds(1))
+    val expectedResultList = listOf(2, 8, 9, 1, 5, 4, 6, 7, 3)
+    val expectedCup = 2
+
+    var game = createGame(cups)
+    game.playRound()
+    assertGame(expectedResultList, expectedCup, game)
+
+    game = createGame(cups)
+    game.playRounds(1)
+    assertGame(expectedResultList, expectedCup, game)
   }
 
   @Test
   fun twoRounds() {
-    val cups = listOf(3,8,9,1,2,5,4,6,7)
-    val expectedResult = Game(listOf(5, 4, 6, 7, 8, 9, 1, 3, 2))
-    assertEquals(expectedResult, Game(cups).playRounds(2))
-  }
-
-  @Test
-  fun sixthRound() {
-    val cups = listOf( 1, 3,  6,  7,9,  2,  5,  8,  4)
-    val expectedResult = Game(listOf(9, 3,  6,7,  2,  5,  8,  4,  1))
-    assertEquals(expectedResult, Game(cups).playRounds(1))
+    val game = createGame(listOf(3,8,9,1,2,5,4,6,7))
+    game.playRounds(2)
+    assertEquals(5, game.currCup())
   }
 
   @Test
   fun tenRounds() {
     val cups = listOf(3,8,9,1,2,5,4,6,7)
-    val expectedResult = Game(listOf(8, 3, 7, 4, 1, 9, 2, 6, 5))
-    assertEquals(expectedResult, Game(cups).playRounds(10))
-  }
-
-  @Test
-  fun resultString() {
-    val result = listOf(8, 3, 7, 4, 1, 9, 2, 6, 5)
-    assertEquals("92658374", Game(result).resultString())
+    val game = createGame(cups)
+    game.playRounds(10)
+    assertEquals(8, game.currCup())
   }
 
   @Test
@@ -51,11 +52,11 @@ class Day23Test {
 
   @Test
   fun day23p2TestInput_works() {
-//    assertEquals(149245887792, day23pt2("input/day23Test.txt"))
+    assertEquals(149245887792, day23pt2("input/day23Test.txt"))
   }
 
   @Test
   fun day23p2_works() {
-//    assertEquals(149245887792, day23pt2())
+    assertEquals(192515314252, day23pt2())
   }
 }

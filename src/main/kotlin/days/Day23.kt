@@ -1,48 +1,95 @@
 package days
 
 import java.io.File
-import java.util.*
 
-data class Game(val cups: List<Int>){
+data class Node(val int: Int){
+  var prev: Node? = null
+  var next: Node? = null
+}
 
-  fun playRounds(n: Int): Game {
-    var currGame = this
-    for(i in 0 until n){
-      currGame = currGame.playRound()
-      if(i % 1_000 == 0){
-        println("round: $i")
+fun buildMyLL(list: List<Int>, index: Int = 0): MyLinkedList{
+  val result = mutableListOf<Node>()
+  var prev: Node? = null
+  for(i in list){
+    val node = Node(i)
+    node.prev = prev
+    if(prev != null) prev.next = node
+    result.add(node)
+    prev = node
+  }
+  val first = result[0]
+  val last = result.last()
+  first.prev = last
+  last.next = first
+
+  return MyLinkedList(result.toSet(), result[index])
+}
+
+data class MyLinkedList(private val llist: Set<Node>, var currNode: Node){
+  val max = llist.size
+  private val lookup: Map<Int, Node> = llist.map{node -> node.int to node}.toMap()
+
+  fun find(cupInt: Int): Node{
+    return lookup[cupInt]!!
+  }
+
+  fun move(): List<Long> {
+    val p1 = System.nanoTime()
+    val pickupCupsNode = removeNextThree()
+    val p2 = System.nanoTime()
+
+    val pickupCups = mutableListOf<Int>()
+    var node = pickupCupsNode
+    while(true){
+      pickupCups.add(node.int)
+      if(node.next != null) {
+        node = node.next!!
+      }else{
+        break
       }
     }
-    return currGame
+    val destinationCup = destinationCup(pickupCups)
+    val p3 = System.nanoTime()
+    val destCupNode = find(destinationCup)
+    val p4 = System.nanoTime()
+
+    addAllAfter(destCupNode, pickupCupsNode)
+    val p5 = System.nanoTime()
+    currNode = currNode.next!!
+    return listOf(p1, p2, p3, p4, p5)
   }
 
-  fun playRound(): Game{
-    val currentCup = cups[0]
-    val pickupCups = cups.subList(1, 4)
-    val remainingCups = cups.toMutableList()
-    remainingCups.removeAll(pickupCups)
+  private fun addAllAfter(destCupNode: Node, pickupCups: Node) {
+    val right = destCupNode.next!!
+    destCupNode.next = pickupCups
+    pickupCups.prev = destCupNode
 
-    val destinationCup = destinationCup(currentCup, pickupCups)
-    val destCupIdx = remainingCups.indexOf(destinationCup)
-    remainingCups.addAll(destCupIdx + 1 , pickupCups)
+    var end = pickupCups
+    while(end.next != null){
+      end = end.next!!
+    }
 
-    val nextCurrentIdx = remainingCups.indexOf(currentCup) + 1 % cups.size
-    val result = rotateToStart(nextCurrentIdx, remainingCups)
-
-    return Game(result)
+    end.next = right
+    right.prev = end
   }
 
-  fun resultString(): String {
-    val oneIdx = cups.indexOf(1)
-    val result = rotateToStart(oneIdx, cups)
-    return result.drop(1).joinToString("")
+  private fun removeNextThree(): Node{
+    val first = currNode.next!!
+    val second = first.next!!
+    val third = second.next!!
+    val fourth = third.next!!
+    currNode.next = fourth
+    fourth.prev = currNode
+
+    third.next = null
+    return first
   }
 
-  private fun destinationCup(currentCup: Int, pickupCups: List<Int>): Int {
-    var destinationCup = currentCup
+  private fun destinationCup(pickupCups: List<Int>): Int {
+    var destinationCup = currNode.int
     do {
       if(destinationCup <= 1){
-        destinationCup = cups.maxOrNull()!!
+        destinationCup = max
       }else {
         destinationCup -= 1
       }
@@ -51,10 +98,40 @@ data class Game(val cups: List<Int>){
   }
 }
 
-fun rotateToStart(prevIdx: Int, collection: List<Int>):List<Int> {
-  val result = collection.toMutableList()
-  Collections.rotate(result, result.size - prevIdx)
-  return result
+fun createGame(cups: List<Int>, currentIndex: Int = 0): Game {
+  return Game(buildMyLL(cups), currentIndex)
+}
+
+data class Game(val cups: MyLinkedList, var currentIndex: Int){
+  fun playRounds(n: Int) {
+    for(i in 0 until n){
+      playRound()
+    }
+  }
+
+  fun playRound(): List<Long> {
+    return cups.move()
+  }
+
+  fun cupsList(): List<Int>{
+    val result = mutableListOf<Int>()
+    var node = cups.currNode
+    for(i in 0 until cups.max){
+      result.add(node.int)
+      node = node.next!!
+    }
+    return result
+  }
+
+  fun currCup(): Int {
+    return cups.currNode.int
+  }
+
+  fun resultString(): String {
+    val one = cups.find(1)
+    cups.currNode = one
+    return cupsList().drop(1).joinToString("")
+  }
 }
 
 fun buildMillionList(intList: List<Int>): List<Int> {
@@ -72,8 +149,9 @@ fun parseToIntList(pathname: String): List<Int>{
 
 fun day23pt1(pathname: String): String {
   val intList = parseToIntList(pathname)
-  val gameResult = Game(intList).playRounds(100)
-  return gameResult.resultString()
+  val game = createGame(intList)
+  game.playRounds(100)
+  return game.resultString()
 }
 
 fun day23pt1(): String {
@@ -83,10 +161,12 @@ fun day23pt1(): String {
 fun day23pt2(pathname: String): Long {
   val intList = parseToIntList(pathname)
   val milList = buildMillionList(intList)
-  val gameResult = Game(milList).playRounds(10_000_000)
-  val oneIdx = gameResult.cups.indexOf(1)
-  val result = rotateToStart(oneIdx, gameResult.cups)
-  return result[0] * result[1].toLong()
+  val game = createGame(milList)
+  game.playRounds(10_000_000)
+  val oneNode = game.cups.find(1)
+  val next1 = oneNode.next!!
+  val next2 = next1.next!!
+  return next1.int * next2.int.toLong()
 }
 
 fun day23pt2(): Long {
@@ -95,5 +175,5 @@ fun day23pt2(): Long {
 
 fun main() {
   println("Part 1: " + day23pt1())
-//  println("Part 2: " + day23pt2())
+  println("Part 2: " + day23pt2())
 }
