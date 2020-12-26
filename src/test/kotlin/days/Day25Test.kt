@@ -23,6 +23,6 @@ class Day25Test {
 
   @Test
   fun day25p1_works() {
-    assertEquals(34005, day25pt1())
+    assertEquals(16311885, day25pt1())
   }
 }

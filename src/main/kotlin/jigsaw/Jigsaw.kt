@@ -265,7 +265,6 @@ fun getNextCoord(size: Int, inProgressPic: Picture): Coord {
     if(!inProgressPic.tiles.containsKey(c)){
       if(!startedTop){
         startedTop = true
-        println("starting top")
       }
       return c
     }
@@ -276,7 +275,6 @@ fun getNextCoord(size: Int, inProgressPic: Picture): Coord {
     if(!inProgressPic.tiles.containsKey(c)){
       if(!startedLeft){
         startedLeft = true
-        println("starting left")
       }
       return c
     }

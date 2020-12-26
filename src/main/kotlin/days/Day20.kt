@@ -10,7 +10,6 @@ fun day20pt1(pathname: String): Long {
   val input = asString(pathname)
   val tiles = parseTiles(input)
   val size = sqrt(tiles.size.toDouble()).toInt()
-  println("size: $size")
   val pic = createPicture(tiles, size)!!
   val tlId = pic.tiles[Coord(0, 0)]!!.id
   val trId = pic.tiles[Coord(size-1, 0)]!!.id
