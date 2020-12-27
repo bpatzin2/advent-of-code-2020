@@ -16,35 +16,37 @@ class ComputerTest {
   @Test
   fun jmp0_halts() {
     assertState(0, listOf(1), 1,
-      exe(listOf(
+      exe(createProgram(listOf(
         JmpInstruction( 0)
-      )))
+      ))))
   }
 
   @Test
   fun accThenJumpNeg1_halts() {
-    assertState(2, listOf(1, 2), 1,
-      exe(listOf(
+    val program = createProgram(
+      listOf(
         AccInstruction(2),
-        JmpInstruction(-1))))
+        JmpInstruction(-1)))
+
+    assertState(2, listOf(1, 2), 1, exe(program))
   }
 
-    val testInput = """
-      nop +0
-      acc +1
-      jmp +4
-      acc +3
-      jmp -3
-      acc -99
-      acc +1
-      jmp -4
-      acc +6
-      """.trimIndent()
+  private val testInput = """
+    nop +0
+    acc +1
+    jmp +4
+    acc +3
+    jmp -3
+    acc -99
+    acc +1
+    jmp -4
+    acc +6
+    """.trimIndent()
 
   @Test
   fun exe_test_input() {
     assertState(
       5, listOf(1, 2, 3, 7, 8, 4, 5), 2,
-      exe(parseInstructions(testInput.split("\n"))))
+      exe(parse(testInput.split("\n"))))
   }
 }

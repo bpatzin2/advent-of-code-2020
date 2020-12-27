@@ -3,6 +3,9 @@ package luggage
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 
+// Russian-doll luggage bags, where a bag contains bags
+// which can contain other bags
+
 data class Rule(val bag: String, val contents: Set<BagContent>)
 data class BagContent(val bag: String, val num: Int)
 data class RecursiveContent(val bag: String, val num: Int, val contents: Set<RecursiveContent>)

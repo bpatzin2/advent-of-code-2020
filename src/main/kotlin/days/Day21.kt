@@ -14,7 +14,7 @@ data class Input21(
   val ingCount: Map<Ingredient, Int>,
 )
 
-fun parse(lines: List<String>): Input21{
+fun parseFoodDetails(lines: List<String>): Input21{
   val allergenToIngredients: ArrayListMultimap<Allergen, Ingredient> = ArrayListMultimap.create()
   val allAllergens = mutableSetOf<Allergen>()
   val allIngredients = mutableSetOf<Ingredient>()
@@ -109,7 +109,7 @@ fun sumSafeIngredients(
 }
 
 fun day21pt1(pathname: String): Int {
-  val parsed = parse(File(pathname).readLines())
+  val parsed = parseFoodDetails(File(pathname).readLines())
   return sumSafeIngredients(
     parsed.constraints, parsed.allIngredients, parsed.allAllergens, parsed.ingCount)
 }
@@ -119,7 +119,7 @@ fun day21pt1(): Int {
 }
 
 fun day21pt2(pathname: String): String {
-  val parsed = parse(File(pathname).readLines())
+  val parsed = parseFoodDetails(File(pathname).readLines())
   val knownResult = knownIngredients( parsed.constraints, parsed.allAllergens)
   val known = knownResult.known
   val knownAlpha = known.entries.sortedBy{ c -> c.key }.map{c -> c.value}

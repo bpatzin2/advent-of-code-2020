@@ -3,12 +3,12 @@ package days
 import luggage.countBagsContainedIn
 import fileinput.asString
 import luggage.allBagsThatContain
-import luggage.parseInput
+import luggage.parseBagRules
 
 fun day7pt1(pathname: String): Int {
   val inputStr = asString(pathname)
-  val input = parseInput(inputStr)
-  val result: Set<String> = allBagsThatContain("shiny gold", input)
+  val bagRules = parseBagRules(inputStr)
+  val result: Set<String> = allBagsThatContain("shiny gold", bagRules)
   return result.size
 }
 
@@ -18,8 +18,8 @@ fun day7pt1(): Int {
 
 fun day7pt2(pathname: String): Int {
   val inputStr = asString(pathname)
-  val input = parseInput(inputStr)
-  return countBagsContainedIn("shiny gold", input)
+  val bagRules = parseBagRules(inputStr)
+  return countBagsContainedIn("shiny gold", bagRules)
 }
 
 fun day7pt2(): Int {

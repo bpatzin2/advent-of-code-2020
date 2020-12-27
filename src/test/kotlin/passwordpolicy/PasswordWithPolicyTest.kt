@@ -8,7 +8,7 @@ class PasswordWithPolicyTest{
     fun toPasswordWithPolicy_works() {
         assertEquals(
             PasswordWithPolicy("abc",  PasswordPolicy("a", 1, 3)),
-            toPasswordWithPolicy("1-3 a: abc"))
+            parsePasswordWithPolicy("1-3 a: abc"))
     }
 
     @Test

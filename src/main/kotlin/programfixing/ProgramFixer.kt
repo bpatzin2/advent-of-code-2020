@@ -2,17 +2,22 @@ package programfixing
 
 import computer.*
 
-fun fixAndRunProgram(program: Program): ExecutionState? {
+fun fixAndRunProgram(instructions: List<Instruction>): ExecutionState {
+  val program = createProgram(instructions)
+  return fixAndRunProgram(program)
+}
+
+fun fixAndRunProgram(program: Program): ExecutionState {
   for(lineNumber in program.instructions.keys.sorted()){
-    val result = runFixedProgram(lineNumber, program)
+    val result = tryFixingProgram(lineNumber, program)
     if(result != null && result.terminationSuccessful()) {
       return result
     }
   }
-  return null
+  throw RuntimeException("Couldn't fix program")
 }
 
-fun runFixedProgram(lineNumber: Int, program: Program): ExecutionState? {
+fun tryFixingProgram(lineNumber: Int, program: Program): ExecutionState? {
   val fixedProgram = fixCorruptedInstruction(lineNumber, program) ?: return null
   return exe(fixedProgram)
 }

@@ -1,13 +1,13 @@
 package days
 
-import passport.fromStringBatches
+import fileinput.asString
+import passport.parseBatchOfPassports
 import passport.hasAllRequiredFields
 import passport.isValid
-import java.io.File
 
 fun day4pt1(pathname: String): Int {
-  val strList = File(pathname).readLines()
-  val passports = fromStringBatches(strList)
+  val passportBatch = asString(pathname)
+  val passports = parseBatchOfPassports(passportBatch)
   return passports.filter{p -> hasAllRequiredFields(p) }.size
 }
 
@@ -16,8 +16,8 @@ fun day4pt1(): Int {
 }
 
 fun day4pt2(pathname: String): Int {
-  val strList = File(pathname).readLines()
-  val passports = fromStringBatches(strList)
+  val passportBatch = asString(pathname)
+  val passports = parseBatchOfPassports(passportBatch)
   return passports.filter(::isValid).size
 }
 

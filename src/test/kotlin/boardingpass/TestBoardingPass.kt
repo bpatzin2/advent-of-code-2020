@@ -7,26 +7,26 @@ class TestBoardingPass {
 
   @Test
   fun fromString_works() {
-    val boardingPass = fromString("FBFBBFFRLR")
-    assertEquals("FBFBBFF", boardingPass.rowBsp)
-    assertEquals("RLR", boardingPass.columnBsp)
+    val boardingPass = parse("FBFBBFFRLR")
+    assertEquals("FBFBBFF", boardingPass.rowBspInstructions)
+    assertEquals("RLR", boardingPass.columnBspInstructions)
   }
 
   @Test
   fun rowNumber_works() {
-    val boardingPass = fromString("FBFBBFFRLR")
+    val boardingPass = parse("FBFBBFFRLR")
     assertEquals( 44, boardingPass.rowNumber())
   }
 
   @Test
   fun colNumber_works() {
-    val boardingPass = fromString("FBFBBFFRLR")
+    val boardingPass = parse("FBFBBFFRLR")
     assertEquals( 5, boardingPass.colNumber())
   }
 
   @Test
   fun seatId_works() {
-    val boardingPass = fromString("FBFBBFFRLR")
+    val boardingPass = parse("FBFBBFFRLR")
     assertEquals( 357, boardingPass.seatId())
   }
 
@@ -38,7 +38,7 @@ class TestBoardingPass {
   }
 
   private fun test(boardingPassStr: String, row: Int, col: Int, seat: Int){
-    val boardingPass = fromString(boardingPassStr)
+    val boardingPass = parse(boardingPassStr)
     assertEquals( row, boardingPass.rowNumber())
     assertEquals( col, boardingPass.colNumber())
     assertEquals( seat, boardingPass.seatId())

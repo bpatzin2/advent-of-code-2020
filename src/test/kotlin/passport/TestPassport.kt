@@ -44,15 +44,15 @@ class TestPassport {
   }
 
   @Test
-  fun fromStringBathes_works() {
-    val passportBatch = listOf(
-      "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd",
-      "byr:1937 iyr:2017 cid:147 hgt:183cm",
-      "",
-      "iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884",
-      "hcl:#cfa07d byr:1929",
-    )
-    val actualPassports = fromStringBatches(passportBatch)
+  fun parseBatchOfPassports_works() {
+    val passportBatch ="""
+      ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+      byr:1937 iyr:2017 cid:147 hgt:183cm
+      
+      iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+      hcl:#cfa07d byr:1929
+      """.trimIndent()
+    val actualPassports = parseBatchOfPassports(passportBatch)
     assertTrue(actualPassports[0].containsKey("ecl"))
     assertTrue(actualPassports[1].containsKey("ecl"))
   }
@@ -67,7 +67,7 @@ class TestPassport {
 
   @Test
   fun isValid_falseTestData() {
-    val batchStr =
+    val passportBatch =
       """
         eyr:1972 cid:100
         hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
@@ -84,15 +84,14 @@ class TestPassport {
         pid:3556412378 byr:2007
       """.trimIndent()
 
-    val passportBatch = batchStr.split("\n")
-    val passports = fromStringBatches(passportBatch)
+    val passports = parseBatchOfPassports(passportBatch)
     assertEquals(4, passports.size)
     passports.forEach { p -> assertFalse(isValid(p)) }
   }
 
   @Test
   fun isValid_trueTestData() {
-    val batchStr =
+    val passportBatch =
       """
       pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980
       hcl:#623a2f
@@ -108,8 +107,7 @@ class TestPassport {
       iyr:2010 hgt:158cm hcl:#b6652a ecl:blu byr:1944 eyr:2021 pid:093154719
       """.trimIndent()
 
-    val passportBatch = batchStr.split("\n")
-    val passports = fromStringBatches(passportBatch)
+    val passports = parseBatchOfPassports(passportBatch)
     assertEquals(4, passports.size)
     passports.forEach { p -> assertTrue(isValid(p)) }
   }

@@ -1,7 +1,5 @@
 package fileinput
 
-import passwordpolicy.PasswordWithPolicy
-import passwordpolicy.toPasswordWithPolicy
 import java.io.BufferedReader
 import java.io.File
 
@@ -10,19 +8,9 @@ fun linesAsCharList(pathname: String): List<List<Char>> {
   return strList.map{s -> s.toList()}
 }
 
-fun asDigitList(pathname: String): List<Int> {
-  val inputString = asString(pathname)
-  return inputString.map(Character::getNumericValue)
-}
-
 fun asNumberListByNewLine(pathname: String): List<Int> {
   val strList = File(pathname).readLines()
   return strList.map(String::toInt)
-}
-
-fun toPasswordsWithPolicies(pathname: String): List<PasswordWithPolicy> {
-  val strList = File(pathname).readLines()
-  return strList.map(::toPasswordWithPolicy)
 }
 
 fun asString(pathname: String): String {

@@ -1,6 +1,5 @@
 package days
 
-import com.google.common.collect.Sets
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -15,7 +14,7 @@ class Day21Test {
       sqjhc fvjkl (contains soy)
       sqjhc mxmxvkd sbzzf (contains fish)
     """.trimIndent().split("\n")
-    val parsed = parse(lines)
+    val parsed = parseFoodDetails(lines)
     assertEquals(7, parsed.allIngredients.size)
     assertEquals(5, parsed.constraints.size)
     assertTrue(parsed.constraints.contains(
@@ -30,7 +29,7 @@ class Day21Test {
       sqjhc fvjkl (contains soy)
       sqjhc mxmxvkd sbzzf (contains fish)
     """.trimIndent().split("\n")
-    val parsed = parse(lines)
+    val parsed = parseFoodDetails(lines)
 
     val safeIngs = safeIngredients(parsed.constraints, parsed.allIngredients, parsed.allAllergens)
 

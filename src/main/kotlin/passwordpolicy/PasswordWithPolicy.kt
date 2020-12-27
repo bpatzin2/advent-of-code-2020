@@ -10,9 +10,9 @@ data class PasswordWithPolicy(val password: String, val policy: PasswordPolicy) 
     }
 }
 
-fun toPasswordWithPolicy(passwordWithPolicyStr: String): PasswordWithPolicy{
+fun parsePasswordWithPolicy(passwordWithPolicyStr: String): PasswordWithPolicy{
     val policyWithPassword = passwordWithPolicyStr.split(": ")
     return PasswordWithPolicy(
         policyWithPassword[1],
-        toPasswordPolicy(policyWithPassword[0]))
+        parsePasswordPolicy(policyWithPassword[0]))
 }

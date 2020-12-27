@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class ProgramFixerTest {
 
-  val testInput = """
+  private val testInput = """
     nop +0
     acc +1
     jmp +4
@@ -21,14 +21,14 @@ class ProgramFixerTest {
   @Test
   fun test_runFixedProgram() {
     val testProgram = parseInstructions(testInput.split("\n"))
-    val result = runFixedProgram(8, toProgram(testProgram))!!
+    val result = tryFixingProgram(8, createProgram(testProgram))!!
     assertEquals(8, result.acc)
   }
 
   @Test
   fun test_fixAndRunProgram() {
     val testProgram = parseInstructions(testInput.split("\n"))
-    val result = fixAndRunProgram(toProgram(testProgram))!!
+    val result = fixAndRunProgram(createProgram(testProgram))
     assertEquals(8, result.acc)
   }
 }

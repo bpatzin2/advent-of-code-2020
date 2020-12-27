@@ -82,12 +82,12 @@ class LuggageTest {
 
   @Test
   fun testRuleParsing() {
-    assertEquals(testInputRules(), parseInput(testInput))
+    assertEquals(testInputRules(), parseBagRules(testInput))
   }
 
   @Test
   fun allBagsThatContain_testStrInputPt1() {
-    val input = parseInput(testInput)
+    val input = parseBagRules(testInput)
     val result = allBagsThatContain("shiny gold", input)
     assertEquals(4, result.size)
   }
@@ -100,7 +100,7 @@ class LuggageTest {
 
   @Test
   fun countBagsContainedIn_strTestInput() {
-    val input = parseInput(testInput)
+    val input = parseBagRules(testInput)
     val result = countBagsContainedIn("shiny gold", input)
     assertEquals(32, result)
   }

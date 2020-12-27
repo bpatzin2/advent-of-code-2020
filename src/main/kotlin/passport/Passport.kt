@@ -1,5 +1,7 @@
 package passport
 
+import groupByEmptyLine
+
 val REQUIRED_FIELDS = listOf(
   "byr",
   "iyr",
@@ -26,21 +28,19 @@ fun isValid(map: Map<String, String>): Boolean{
 // ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
 // byr:1937 iyr:2017 cid:147 hgt:183cm
 // each passport is separated by an empty line
-fun fromStringBatches(batch: List<String>): List<Map<String, String>> {
-  val passports = mutableListOf<Map<String, String>>()
-  var currMap = mutableMapOf<String, String>()
-  for(str in batch){
-    if(str.isBlank()){
-      passports.add(currMap)
-      currMap = mutableMapOf()
-      continue
-    }
-    val fields = str.split(" ")
+fun parseBatchOfPassports(batch: String): List<Map<String, String>> {
+  val passportsAsLists = groupByEmptyLine(batch)
+  return passportsAsLists.map{p -> parsePassport(p)}
+}
+
+fun parsePassport(passport: List<String>): Map<String, String> {
+  val result = mutableMapOf<String, String>()
+  for (line in passport) {
+    val fields = line.split(" ")
     for (field in fields) {
       val keyVal = field.split(":")
-      currMap[keyVal[0]] = keyVal[1]
+      result[keyVal[0]] = keyVal[1]
     }
   }
-  passports.add(currMap)
-  return passports
+  return result
 }

@@ -2,6 +2,9 @@ package boardingpass
 
 import java.lang.RuntimeException
 
+// BSP: Binary Search Protocol
+// Takes a range to search and list of instructions for which half
+// of the range to take on each step of the binary search
 fun bsp(range: IntRange, bspInstructions: String, lowInstruction: Char): Int {
   val resultRange = bspInstructions.fold(range){ currRange, instruction ->
     if (instruction == lowInstruction) {

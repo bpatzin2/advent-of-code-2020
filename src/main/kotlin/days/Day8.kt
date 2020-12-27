@@ -1,15 +1,15 @@
 package days
 
 import computer.exe
+import computer.parse
 import computer.parseInstructions
-import computer.toProgram
 import programfixing.fixAndRunProgram
 import java.io.File
 
 fun day8pt1(pathname: String): Int {
   val strList = File(pathname).readLines()
-  val instructions = parseInstructions(strList)
-  val resultState = exe(instructions)
+  val program = parse(strList)
+  val resultState = exe(program)
   return resultState.acc
 }
 
@@ -20,7 +20,7 @@ fun day8pt1(): Int {
 fun day8pt2(pathname: String): Int {
   val strList = File(pathname).readLines()
   val instructions = parseInstructions(strList)
-  val resultState = fixAndRunProgram(toProgram(instructions))!!
+  val resultState = fixAndRunProgram(instructions)
   return resultState.acc
 }
 

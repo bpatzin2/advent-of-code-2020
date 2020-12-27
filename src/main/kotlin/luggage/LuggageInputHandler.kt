@@ -3,7 +3,7 @@ package luggage
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 
-fun parseInput(string: String): Multimap<String, BagContent> {
+fun parseBagRules(string: String): Multimap<String, BagContent> {
   val lines = string.split("\n")
   val rules: Multimap<String, BagContent> = HashMultimap.create()
   lines.forEach { line ->

@@ -8,9 +8,8 @@ fun day6pt1(pathname: String): Int {
   val str = asString(pathname)
   val declarations = createDeclarationsByAnyYes(str)
   return declarations
-    .map{d -> d.yesAnswers}
-    .map{s -> s.count()}
-    .reduce(Int::plus)
+    .flatMap{d -> d.yesAnswers}
+    .count()
 }
 
 fun day6pt1(): Int {
@@ -21,9 +20,8 @@ fun day6pt2(pathname: String): Int {
   val str = asString(pathname)
   val declarations = createDeclarationsByEveryYes(str)
   return declarations
-    .map{d -> d.yesAnswers}
-    .map{s -> s.count()}
-    .reduce(Int::plus)
+    .flatMap{d -> d.yesAnswers}
+    .count()
 }
 
 fun day6pt2(): Int {
