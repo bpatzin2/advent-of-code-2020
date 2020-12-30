@@ -8,19 +8,19 @@ import kotlin.test.assertTrue
 class ScheduleAlignmentTest {
   @Test
   fun matchesTime_works() {
-    assertTrue(worksAtTime( 0, Bus(7, 0)))
-    assertTrue(worksAtTime( 7, Bus(7, 0)))
-    assertFalse(worksAtTime( 1, Bus(7, 0)))
-    assertTrue(worksAtTime( 25, Bus(13, 1)))
-    assertTrue(worksAtTime( 1068781, Bus(59, 4)))
-    assertTrue(worksAtTime( 32L, Bus(17, 36)))
+    assertTrue(worksAtTime( 0, Schedule(7, 0)))
+    assertTrue(worksAtTime( 7, Schedule(7, 0)))
+    assertFalse(worksAtTime( 1, Schedule(7, 0)))
+    assertTrue(worksAtTime( 25, Schedule(13, 1)))
+    assertTrue(worksAtTime( 1068781, Schedule(59, 4)))
+    assertTrue(worksAtTime( 32L, Schedule(17, 36)))
   }
 
   @Test
   fun timeThatMatchesSchedule2_works() {
     val schedule = listOf(
-      Bus(2L, 0L),
-      Bus(5L, 1L),
+      Schedule(2L, 0L),
+      Schedule(5L, 1L),
     )
 
     assertEquals(4L, timeThatMatchesSchedule(schedule))
@@ -29,9 +29,9 @@ class ScheduleAlignmentTest {
   @Test
   fun timeThatMatchesSchedule3_works() {
     val schedule = listOf(
-      Bus(5L, 0L),
-      Bus(6L, 1L),
-      Bus(7L, 2L),
+      Schedule(5L, 0L),
+      Schedule(6L, 1L),
+      Schedule(7L, 2L),
     )
 
     assertEquals(5L, timeThatMatchesSchedule(schedule))
@@ -41,11 +41,11 @@ class ScheduleAlignmentTest {
   @Test
   fun timeThatMatchesSchedule_works() {
     val schedule = listOf(
-      Bus(7L, 0L),
-      Bus(13L, 1L),
-      Bus(59L, 4L),
-      Bus(31L, 6L),
-      Bus(19L, 7L),
+      Schedule(7L, 0L),
+      Schedule(13L, 1L),
+      Schedule(59L, 4L),
+      Schedule(31L, 6L),
+      Schedule(19L, 7L),
     )
 
     assertEquals(1068781L, timeThatMatchesSchedule(schedule))
@@ -55,11 +55,11 @@ class ScheduleAlignmentTest {
   fun parseScheduleMap_works() {
     val schedule = "7,13,x,x,59,x,31,19"
     val expectedSchedule = listOf(
-      Bus(7L, 0L),
-      Bus(13L, 1L),
-      Bus(59L, 4L),
-      Bus(31L, 6L),
-      Bus(19L, 7L),
+      Schedule(7L, 0L),
+      Schedule(13L, 1L),
+      Schedule(59L, 4L),
+      Schedule(31L, 6L),
+      Schedule(19L, 7L),
     )
     assertEquals(expectedSchedule, parseScheduleMap(schedule))
   }

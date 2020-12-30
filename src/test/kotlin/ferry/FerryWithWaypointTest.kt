@@ -7,7 +7,7 @@ class FerryWithWaypointTest {
   @Test
   fun applyMove_singleMove() {
     val instructions = listOf(
-      Pair('N', 3),
+      Instruction('N', 3),
     )
 
     val expectedWaypoint =  Waypoint(3, 0)
@@ -23,7 +23,7 @@ class FerryWithWaypointTest {
   @Test
   fun applyTurn_L90() {
     val instructions = listOf(
-      Pair('L', 90),
+      Instruction('L', 90),
     )
 
     val initialWaypoint = Waypoint(5, 0)
@@ -39,7 +39,7 @@ class FerryWithWaypointTest {
   @Test
   fun applyTurn_L180() {
     val instructions = listOf(
-      Pair('L', 180),
+      Instruction('L', 180),
     )
 
     val initialWaypoint = Waypoint(5, 0)
@@ -61,7 +61,7 @@ class FerryWithWaypointTest {
       "R90",
       "F11",
     )
-    val instructions = parseInput(instructionList)
+    val instructions = parseInstructions(instructionList)
 
     val initialWaypoint = Waypoint(1, 10)
     val initialFerry = FerryWithWaypoint(0, 0, initialWaypoint)

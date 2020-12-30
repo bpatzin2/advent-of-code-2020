@@ -3,28 +3,28 @@ package ferry
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class FerryTest {
+class BasicFerryTest {
   @Test
   fun applyInstruction_singleMove() {
     val instructions = listOf(
-      Pair('N', 3),
+      Instruction('N', 3),
     )
 
     assertEquals(
-      Ferry(3, 0, 0),
-      Ferry(0, 0, 0).applyInstructions(instructions)
+      BasicFerry(3, 0, 0),
+      BasicFerry(0, 0, 0).applyInstructions(instructions)
     )
   }
 
   @Test
   fun applyInstruction_singleTurn() {
     val instructions = listOf(
-      Pair('L', 90),
+      Instruction('L', 90),
     )
 
     assertEquals(
-      Ferry(0, 0, 270),
-      Ferry(0, 0, 0).applyInstructions(instructions)
+      BasicFerry(0, 0, 270),
+      BasicFerry(0, 0, 0).applyInstructions(instructions)
     )
   }
 
@@ -38,18 +38,18 @@ class FerryTest {
       F11
     """.trimIndent()
 
-    val instructions = parseInput(testInput.split("\n"))
+    val instructions = parseInstructions(testInput.split("\n"))
 
     assertEquals(
-      Ferry(-8, 17, 180),
-      Ferry(0, 0, 90).applyInstructions(instructions)
+      BasicFerry(-8, 17, 180),
+      BasicFerry(0, 0, 90).applyInstructions(instructions)
     )
   }
 
   @Test
   fun test_distanceFrom() {
-    val initialFerry = Ferry(0, 0, 90)
-    val finalFerry = Ferry(-8, 17, 180)
+    val initialFerry = BasicFerry(0, 0, 90)
+    val finalFerry = BasicFerry(-8, 17, 180)
     assertEquals(25, initialFerry.distanceFrom(finalFerry))
   }
 }

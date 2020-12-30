@@ -2,9 +2,9 @@ package busschedule
 
 import org.apache.commons.math3.util.ArithmeticUtils
 
-data class Bus(val period: Long, val offset: Long)
+data class Schedule(val period: Long, val offset: Long)
 
-fun timeThatMatchesSchedule(schedule: List<Bus>): Long{
+fun timeThatMatchesSchedule(schedule: List<Schedule>): Long{
   if(schedule.size == 1){
     // Only needed to handle initial inputs of size 1
     // The general case returns at size 2
@@ -18,55 +18,55 @@ fun timeThatMatchesSchedule(schedule: List<Bus>): Long{
   return timeThatMatchesSchedule(collapsed)
 }
 
-// When called with 2 Buses,
-// returns a single bus that represents the pair of buses
+// When called with 2 schedules,
+// returns a single schedule that represents the pair of schedule
 // by their shared period (LCM) and offset
-private fun collapse(busList: List<Bus>): Bus {
-  if(busList.isEmpty() || busList.size > 2){
-    throw RuntimeException("collapse size ${busList.size}")
+private fun collapse(scheduleList: List<Schedule>): Schedule {
+  if(scheduleList.isEmpty() || scheduleList.size > 2){
+    throw RuntimeException("collapse size ${scheduleList.size}")
   }
-  if(busList.size == 1){
-    return busList[0]
+  if(scheduleList.size == 1){
+    return scheduleList[0]
   }
-  val bus1 = busList[0]
-  val bus2 = busList[1]
-  val period = ArithmeticUtils.lcm(bus1.period, bus2.period)
-  val t = firstTimeThatWorksForBoth(bus1, bus2)
-  return Bus(period, period - t)
+  val schedule1 = scheduleList[0]
+  val schedule2 = scheduleList[1]
+  val period = ArithmeticUtils.lcm(schedule1.period, schedule2.period)
+  val t = firstTimeThatWorksForBoth(schedule1, schedule2)
+  return Schedule(period, period - t)
 }
 
-private fun firstTimeThatWorksForBoth(bus1: Bus, bus2: Bus): Long{
-  val period = ArithmeticUtils.lcm(bus1.period, bus2.period)
-  val busWithLargerPeriod = if(bus1.period > bus2.period) bus1 else bus2
+private fun firstTimeThatWorksForBoth(schedule1: Schedule, schedule2: Schedule): Long{
+  val period = ArithmeticUtils.lcm(schedule1.period, schedule2.period)
+  val busWithLargerPeriod = if(schedule1.period > schedule2.period) schedule1 else schedule2
   val firstPossibleTime = firstTimeThatWorks(busWithLargerPeriod)
   val lastPossibleTime = (period * 2)
   for (t in firstPossibleTime..lastPossibleTime step busWithLargerPeriod.period) {
-    if(worksAtTime(t, bus1) && worksAtTime(t, bus2)){
+    if(worksAtTime(t, schedule1) && worksAtTime(t, schedule2)){
       return t
     }
   }
   throw RuntimeException("firstTimeThatWorksForBoth failed")
 }
 
-fun worksAtTime(t: Long, bus: Bus): Boolean {
-  return (t + bus.offset) % bus.period == 0L
+fun worksAtTime(t: Long, schedule: Schedule): Boolean {
+  return (t + schedule.offset) % schedule.period == 0L
 }
 
 //gross - figure out how to find the first time more easily
-private fun firstTimeThatWorks(bus: Bus): Long {
-  var startingT = bus.period - bus.offset
-  while (startingT < 0 || !worksAtTime(startingT, bus)) startingT++
+private fun firstTimeThatWorks(schedule: Schedule): Long {
+  var startingT = schedule.period - schedule.offset
+  while (startingT < 0 || !worksAtTime(startingT, schedule)) startingT++
   return startingT
 }
 
-fun parseScheduleMap(schedule: String): List<Bus>{
+fun parseScheduleMap(schedule: String): List<Schedule>{
   return schedule
     .split(",")
     .mapIndexedNotNull{idx, it ->
       if(it == "x"){
         null
       }else{
-        Bus(it.toLong(), idx.toLong())
+        Schedule(it.toLong(), idx.toLong())
       }
     }
 }

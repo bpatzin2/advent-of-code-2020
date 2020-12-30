@@ -5,11 +5,11 @@ import com.google.common.collect.Lists
 const val EMPTY_SEAT = 'L'
 const val OCCUPIED_SEAT = '#'
 
-interface SeatingI {
+interface Seating {
   val grid: List<List<Char>>
   val occupiedSeatThreshold: Int
 
-  fun new(newGrid: List<List<Char>>): SeatingI
+  fun new(newGrid: List<List<Char>>): Seating
   fun getNextSeat(row: Int, col: Int, xDir: Int, yDir: Int): Char?
 
   fun numOccupiedSeatsAtStableState(): Int{
@@ -30,8 +30,8 @@ interface SeatingI {
     return sb.toString()
   }
 
-  private fun runUntilStableState(): SeatingI{
-    var prevState: SeatingI? = null
+  private fun runUntilStableState(): Seating{
+    var prevState: Seating? = null
     var currState = this
     while(prevState != currState){
       prevState = currState
@@ -41,7 +41,7 @@ interface SeatingI {
   }
 
   /*public-for-testing*/
-  fun updateState(): SeatingI{
+  fun updateState(): Seating{
     val newState =
       grid.indices.map{ row ->
         grid[row].indices.map{col -> updateSeat(row, col)}
@@ -72,51 +72,5 @@ interface SeatingI {
     return dirs
       .filter {(xDir, yDir) -> !(xDir == 0 && yDir == 0) }
       .mapNotNull{(xDir, yDir) -> getNextSeat(row, col, xDir, yDir)}
-  }
-}
-
-data class Seating(override val grid: List<List<Char>>) : SeatingI {
-
-  override val occupiedSeatThreshold = 4
-
-  override fun new(newGrid: List<List<Char>>): Seating {
-    return Seating(newGrid)
-  }
-
-  override fun getNextSeat(row: Int, col: Int, xDir: Int, yDir: Int): Char?{
-    val square = getSquare(row + yDir, col + xDir)
-    return if(square == OCCUPIED_SEAT || square == EMPTY_SEAT) square else null
-  }
-
-  override fun toString(): String {
-    return super.printGrid()
-  }
-}
-
-data class VisibleSeating(override val grid: List<List<Char>>) : SeatingI {
-
-  override val occupiedSeatThreshold = 5
-
-  override fun new(newGrid: List<List<Char>>): VisibleSeating {
-    return VisibleSeating(newGrid)
-  }
-
-  override fun getNextSeat(row: Int, col: Int, xDir: Int, yDir: Int): Char? {
-    var nextRow = row + yDir
-    var nextCol = col + xDir
-    var nextSquare = getSquare(nextRow, nextCol)
-    while(nextSquare != null){
-      if(nextSquare == OCCUPIED_SEAT || nextSquare == EMPTY_SEAT){
-        return nextSquare
-      }
-      nextRow += yDir
-      nextCol += xDir
-      nextSquare = getSquare(nextRow, nextCol)
-    }
-    return null
-  }
-
-  override fun toString(): String {
-    return super.printGrid()
   }
 }

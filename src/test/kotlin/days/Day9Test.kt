@@ -50,7 +50,7 @@ class Day9Test {
     val longs = testInts.split("\n").map{it.toLong()}
     assertEquals(
       setOf(15L, 25L, 47L, 40L),
-      findContiguousSet(longs, 127))
+      findContiguousSetWithSum(longs, 127))
   }
 
   @Test

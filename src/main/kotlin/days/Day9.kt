@@ -19,7 +19,7 @@ fun firstNotSumOfPrevious(ints: List<Long>, prevCount: Int): Long {
   return -1
 }
 
-fun findContiguousSet(ints: List<Long>, sum: Long): Set<Long> {
+fun findContiguousSetWithSum(ints: List<Long>, sum: Long): Set<Long> {
   for(setSize in 2 until ints.size){
     for(set in ints.windowed(size = setSize, step = 1)) {
       if(set.reduce(Long::plus) == sum){
@@ -43,7 +43,7 @@ fun day9pt1(): Long {
 fun day9pt2(pathname: String, sum: Long): Long {
   val strList = File(pathname).readLines()
   val longs = strList.map {it.toLong()}
-  val set = findContiguousSet(longs, sum)
+  val set = findContiguousSetWithSum(longs, sum)
   return set.minOrNull()!! + set.maxOrNull()!!
 }
 

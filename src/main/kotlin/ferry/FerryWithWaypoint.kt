@@ -1,9 +1,9 @@
 package ferry
 
-data class FerryWithWaypoint(
+internal data class FerryWithWaypoint(
   override val nsPos: Int,
   override val ewPos: Int,
-  val wayPoint: Waypoint): FerryI {
+  val wayPoint: Waypoint): Ferry {
 
   override fun applyMove(dir: Char, value: Int): FerryWithWaypoint{
     return FerryWithWaypoint(nsPos, ewPos, wayPoint.move(dir, value))
@@ -20,6 +20,11 @@ data class FerryWithWaypoint(
   override fun applyTurn(dir: Char, turnDegrees: Int): FerryWithWaypoint{
     return FerryWithWaypoint(nsPos, ewPos, wayPoint.turn(dir, turnDegrees))
   }
+}
+
+fun createFerryWithWaypoint(waypointNs: Int, waypointEw: Int): Ferry {
+  val initialWaypoint = Waypoint(waypointNs, waypointEw)
+  return FerryWithWaypoint(0, 0, initialWaypoint)
 }
 
 data class Waypoint(val nsDist: Int, val ewDist: Int){

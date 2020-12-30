@@ -12,9 +12,9 @@ class SeatingTest {
       "#L".toList(),
     )
 
-    assertEquals(1, Seating(grid).getAdjOccupiedCount(0, 0))
-    assertEquals(2, Seating(grid).getAdjOccupiedCount(2, 1))
-    assertEquals(1, Seating(grid).getAdjOccupiedCount(2, 0))
+    assertEquals(1, BasicSeating(grid).getAdjOccupiedCount(0, 0))
+    assertEquals(2, BasicSeating(grid).getAdjOccupiedCount(2, 1))
+    assertEquals(1, BasicSeating(grid).getAdjOccupiedCount(2, 0))
   }
 
   @Test
@@ -33,7 +33,7 @@ class SeatingTest {
       "#L#".toList(),
     )
 
-    assertEquals(expectedGrid, Seating(grid).updateState().grid)
+    assertEquals(expectedGrid, BasicSeating(grid).updateState().grid)
   }
 
   val testInput = """
@@ -56,7 +56,7 @@ class SeatingTest {
   @Test
   fun numOccupiedSeatsAtStableState() {
     assertEquals(37,
-      Seating(testInputStrs).numOccupiedSeatsAtStableState())
+      BasicSeating(testInputStrs).numOccupiedSeatsAtStableState())
   }
 
   val testVisibleSeatsStr = """
@@ -83,17 +83,16 @@ class SeatingTest {
       "##".toList(),
     )
 
-    assertEquals('#', VisibleSeating(grid).getNextSeat(0, 0, 0, 1))
-    assertEquals('L', VisibleSeating(grid).getNextSeat(0, 0, 1, 1))
+    assertEquals('#', LineOfSightSeating(grid).getNextSeat(0, 0, 0, 1))
+    assertEquals('L', LineOfSightSeating(grid).getNextSeat(0, 0, 1, 1))
 
-    assertEquals(1, VisibleSeating(grid).getAdjOccupiedCount(0, 0))
-    assertEquals(2, VisibleSeating(grid).getAdjOccupiedCount(1, 1))
+    assertEquals(1, LineOfSightSeating(grid).getAdjOccupiedCount(0, 0))
+    assertEquals(2, LineOfSightSeating(grid).getAdjOccupiedCount(1, 1))
   }
 
   @Test
   fun visibleSeating_numOccupiedSeatsAtStableState() {
     assertEquals(26,
-      VisibleSeating(testInputStrs).numOccupiedSeatsAtStableState())
+      LineOfSightSeating(testInputStrs).numOccupiedSeatsAtStableState())
   }
-
 }

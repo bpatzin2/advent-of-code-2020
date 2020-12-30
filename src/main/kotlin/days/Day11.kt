@@ -1,7 +1,7 @@
 package days
 
-import seating.Seating
-import seating.VisibleSeating
+import seating.BasicSeating
+import seating.LineOfSightSeating
 import java.io.File
 
 private fun toGrid(pathname: String): List<List<Char>> {
@@ -11,7 +11,7 @@ private fun toGrid(pathname: String): List<List<Char>> {
 
 fun day11pt1(pathname: String): Int {
   val grid = toGrid(pathname)
-  return Seating(grid).numOccupiedSeatsAtStableState()
+  return BasicSeating(grid).numOccupiedSeatsAtStableState()
 }
 
 fun day11pt1(): Int {
@@ -20,7 +20,7 @@ fun day11pt1(): Int {
 
 fun day11pt2(pathname: String): Int {
   val grid = toGrid(pathname)
-  return VisibleSeating(grid).numOccupiedSeatsAtStableState()
+  return LineOfSightSeating(grid).numOccupiedSeatsAtStableState()
 }
 
 fun day11pt2(): Int {
