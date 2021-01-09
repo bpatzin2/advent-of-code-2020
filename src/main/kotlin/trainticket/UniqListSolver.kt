@@ -1,6 +1,7 @@
 package trainticket
 
 // possibilities are the values that are possible at a given index
+//
 // returns a list of strings where each index has one of the
 // possibilities at that index such that the remaining elements
 // are also a possibility at their index and that no element

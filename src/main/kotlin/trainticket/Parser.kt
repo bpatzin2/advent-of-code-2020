@@ -13,8 +13,9 @@ fun getYourTicketSection(fileStr: String): String {
   return section.split("\n")[0]
 }
 
-fun parseMyTicket(ticketSection: String): List<Int> {
-  return ticketSection.split(",").map{it.toInt()}
+fun parseMyTicket(ticketSection: String): UnlabeledTicket {
+  val ticketVals = ticketSection.split(",").map{it.toInt()}
+  return UnlabeledTicket(ticketVals)
 }
 
 fun parseRulesRanges(rules: List<String>): Set<Rule>{

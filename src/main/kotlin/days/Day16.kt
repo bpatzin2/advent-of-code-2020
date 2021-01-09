@@ -8,10 +8,10 @@ import trainticket.parseInput
 fun sumInvalidValues(
   nearbyTickets: Set<List<Int>>,
   rules: Set<Rule>): Long {
-   val invalidValues: List<Int> = nearbyTickets.flatten().filter { ticValue ->
-     val inRule = rules.any { rule -> rule.isValidValue(ticValue) }
-     !inRule
-   }
+   val invalidValues: List<Int> = nearbyTickets.flatten()
+     .filter { ticValue ->
+      rules.none { rule -> rule.isValidValue(ticValue) }
+    }
   return invalidValues.fold(0L, Long::plus)
 }
 

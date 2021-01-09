@@ -11,7 +11,8 @@ class TicketAnalyzerTest {
     val input = TrainTicketNotes(
       setOf(rule1, rule2),
       setOf(listOf(1,3), listOf(2,4)),
-      emptyList())
+      UnlabeledTicket(emptyList()),
+    )
     val result = determineTicketFieldOrder(input)
     assertEquals(listOf("a", "b"), result)
   }
@@ -25,8 +26,10 @@ class TicketAnalyzerTest {
       setOf(rule1, rule2, rule3),
       setOf(
         listOf(1, 3, 3),
-        listOf(2, 3, 4)),
-      emptyList())
+        listOf(2, 3, 4)
+      ),
+      UnlabeledTicket(emptyList()),
+    )
     val result = determineTicketFieldOrder(input)
     assertEquals(listOf("a", "c", "b"), result)
   }

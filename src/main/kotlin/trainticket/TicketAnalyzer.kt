@@ -7,20 +7,22 @@ fun multiplyMyDepartureFields(ticketNotes: TrainTicketNotes): Long{
 }
 
 fun determineMyTicket(ticketNotes: TrainTicketNotes): Map<String, Int>{
+  val myTicket = ticketNotes.myTicket
   val fieldOrder = determineTicketFieldOrder(ticketNotes)
   return fieldOrder.mapIndexed{ idx, field ->
-    val myVal = ticketNotes.myTicket[idx]
-    field to myVal
+    field to myTicket.vals[idx]
   }.toMap()
 }
 
 fun determineTicketFieldOrder(ticketNotes: TrainTicketNotes): List<String> {
   val validTickets = ticketNotes.validNearbyTickets()
+  val arbitraryValidTicket = validTickets.first()
   val rules = ticketNotes.rules
-  val possibilities: List<Set<Rule>> = validTickets.first().mapIndexed { valueIdx, _ ->
-    val allValuesAtIndex = validTickets.map { it[valueIdx] }.toSet()
-    validPossibilities(allValuesAtIndex, rules)
-  }
+  val possibilities: List<Set<Rule>> = arbitraryValidTicket.vals
+    .mapIndexed { valueIdx, _ ->
+      val allValuesAtIndex = validTickets.map { it.vals[valueIdx] }.toSet()
+      validPossibilities(allValuesAtIndex, rules)
+    }
 
   return resolvePossibilities(possibilities)
 }
